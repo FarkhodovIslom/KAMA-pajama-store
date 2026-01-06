@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  icon      String?
+  sortOrder Int       @default(0)
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id          String           @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  categoryId  String
+  category    Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  images      ProductImage[]
+  variants    ProductVariant[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model ProductImage {
+  id        String  @id @default(cuid())
+  url       String
+  color     String?
+  isMain    Boolean @default(false)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductVariant {
+  id        String  @id @default(cuid())
+  color     String
+  size      String
+  inStock   Boolean @default(true)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, color, size])
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  status    String      @default("PENDING")
+  total     Float
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   Int
+  order     Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  name      String
+  color     String
+  size      String
+  quantity  Int
+  price     Float
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Settings {
+  id           String  @id @default("default")
+  logoUrl      String?
+  primaryColor String  @default("#D4A574")
+  storeName    String  @default("KAMA")
+}

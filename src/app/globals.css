@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+/* ============================================
+   KAMA Pajama Store - Design System
+   ============================================
+   Premium pastel aesthetic with gold accents
+   Optimized for iPad touch interfaces
+   ============================================ */
+
+:root {
+  /* Brand Colors */
+  --kama-gold: #D4A574;
+  --kama-gold-light: #E8C9A8;
+  --kama-gold-dark: #B8926A;
+  
+  /* Pastel Palette */
+  --kama-cream: #FDF8F3;
+  --kama-beige: #F5EDE4;
+  --kama-rose: #F5E1E0;
+  --kama-blush: #EDD5D5;
+  --kama-lavender: #E8E4F0;
+  --kama-mint: #E4F0E8;
+  
+  /* Neutral Colors */
+  --kama-white: #FFFFFF;
+  --kama-gray-50: #FAFAFA;
+  --kama-gray-100: #F4F4F5;
+  --kama-gray-200: #E4E4E7;
+  --kama-gray-300: #D4D4D8;
+  --kama-gray-400: #A1A1AA;
+  --kama-gray-500: #71717A;
+  --kama-gray-600: #52525B;
+  --kama-gray-700: #3F3F46;
+  --kama-gray-800: #27272A;
+  --kama-gray-900: #18181B;
+  
+  /* Semantic Colors */
+  --kama-success: #86C5A2;
+  --kama-warning: #F5D89A;
+  --kama-error: #E5A4A4;
+  
+  /* Typography */
+  --font-display: 'Outfit', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  
+  /* Spacing */
+  --touch-target: 60px;
+  --card-padding: 24px;
+  --section-gap: 32px;
+  
+  /* Borders */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(180, 146, 106, 0.08);
+  --shadow-md: 0 4px 16px rgba(180, 146, 106, 0.12);
+  --shadow-lg: 0 8px 32px rgba(180, 146, 106, 0.16);
+  --shadow-xl: 0 16px 48px rgba(180, 146, 106, 0.20);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+  
+  /* Layout */
+  --background: var(--kama-cream);
+  --foreground: var(--kama-gray-800);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+}
+
+/* ============================================
+   Global Styles
+   ============================================ */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--kama-gray-900);
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+/* ============================================
+   Component Base Styles
+   ============================================ */
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--touch-target);
+  padding: 16px 32px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  user-select: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--kama-gold) 0%, var(--kama-gold-dark) 100%);
+  color: var(--kama-white);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+  background: var(--kama-white);
+  color: var(--kama-gray-800);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--kama-gray-200);
+}
+
+.btn-secondary:hover {
+  background: var(--kama-gray-50);
+  border-color: var(--kama-gold-light);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--kama-gray-600);
+}
+
+.btn-ghost:hover {
+  background: var(--kama-beige);
+  color: var(--kama-gray-800);
+}
+
+/* Cards */
+.card {
+  background: var(--kama-white);
+  border-radius: var(--radius-lg);
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card-interactive {
+  cursor: pointer;
+}
+
+.card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-interactive:active {
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   Layout Utilities
+   ============================================ */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.grid-categories {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.grid-products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 834px) {
+  .grid-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================
+   Touch Optimizations
+   ============================================ */
+
+.touch-target {
+  min-height: var(--touch-target);
+  min-width: var(--touch-target);
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-normal) ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp var(--transition-normal) ease forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--transition-normal) ease forwards;
+}
+
+/* Staggered animations */
+.stagger-1 { animation-delay: 50ms; }
+.stagger-2 { animation-delay: 100ms; }
+.stagger-3 { animation-delay: 150ms; }
+.stagger-4 { animation-delay: 200ms; }
+.stagger-5 { animation-delay: 250ms; }
+.stagger-6 { animation-delay: 300ms; }
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--kama-beige);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--kama-gold-light);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kama-gold);
+}
