@@ -8,67 +8,78 @@
    ============================================ */
 
 :root {
-  /* Brand Colors */
-  --kama-gold: #D4A574;
-  --kama-gold-light: #E8C9A8;
-  --kama-gold-dark: #B8926A;
-  
-  /* Pastel Palette */
-  --kama-cream: #FDF8F3;
-  --kama-beige: #F5EDE4;
-  --kama-rose: #F5E1E0;
-  --kama-blush: #EDD5D5;
-  --kama-lavender: #E8E4F0;
-  --kama-mint: #E4F0E8;
-  
-  /* Neutral Colors */
-  --kama-white: #FFFFFF;
-  --kama-gray-50: #FAFAFA;
-  --kama-gray-100: #F4F4F5;
-  --kama-gray-200: #E4E4E7;
-  --kama-gray-300: #D4D4D8;
-  --kama-gray-400: #A1A1AA;
-  --kama-gray-500: #71717A;
-  --kama-gray-600: #52525B;
-  --kama-gray-700: #3F3F46;
-  --kama-gray-800: #27272A;
-  --kama-gray-900: #18181B;
-  
+  /* Brand Colors - Vibrant & Modern */
+  --kama-primary: #6366f1;
+  /* Indigo 500 */
+  --kama-primary-light: #818cf8;
+  /* Indigo 400 */
+  --kama-primary-dark: #4f46e5;
+  /* Indigo 600 */
+
+  --kama-accent: #f472b6;
+  /* Pink 400 */
+  --kama-accent-light: #fbcfe8;
+  /* Pink 200 */
+  --kama-accent-dark: #db2777;
+  /* Pink 600 */
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+  --gradient-accent: linear-gradient(135deg, #f472b6 0%, #fb7185 100%);
+  --gradient-mesh: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(244, 114, 182, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(56, 189, 248, 0.15) 0px, transparent 50%);
+
+  /* Neutral Colors - Clean & Sharp */
+  --kama-white: #ffffff;
+  --kama-gray-50: #f8fafc;
+  --kama-gray-100: #f1f5f9;
+  --kama-gray-200: #e2e8f0;
+  --kama-gray-300: #cbd5e1;
+  --kama-gray-400: #94a3b8;
+  --kama-gray-500: #64748b;
+  --kama-gray-600: #475569;
+  --kama-gray-700: #334155;
+  --kama-gray-800: #1e293b;
+  --kama-gray-900: #0f172a;
+
   /* Semantic Colors */
-  --kama-success: #86C5A2;
-  --kama-warning: #F5D89A;
-  --kama-error: #E5A4A4;
-  
+  --kama-success: #22c55e;
+  --kama-warning: #f59e0b;
+  --kama-error: #ef4444;
+
   /* Typography */
   --font-display: 'Outfit', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
-  
+
   /* Spacing */
   --touch-target: 60px;
   --card-padding: 24px;
   --section-gap: 32px;
-  
+
   /* Borders */
   --radius-sm: 12px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
   --radius-full: 9999px;
-  
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(180, 146, 106, 0.08);
-  --shadow-md: 0 4px 16px rgba(180, 146, 106, 0.12);
-  --shadow-lg: 0 8px 32px rgba(180, 146, 106, 0.16);
-  --shadow-xl: 0 16px 48px rgba(180, 146, 106, 0.20);
-  
+
+  /* Shadows - Soft & Modern */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-normal: 250ms ease;
-  --transition-slow: 400ms ease;
-  
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
   /* Layout */
-  --background: var(--kama-cream);
-  --foreground: var(--kama-gray-800);
+  --background: var(--kama-gray-50);
+  --foreground: var(--kama-gray-900);
 }
 
 @theme inline {
@@ -93,6 +104,8 @@ html {
 
 body {
   background: var(--background);
+  background-image: var(--gradient-mesh);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-body);
   font-size: 16px;
@@ -106,17 +119,33 @@ body {
    Typography
    ============================================ */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 600;
   color: var(--kama-gray-900);
   line-height: 1.2;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
 
 /* ============================================
    Component Base Styles
@@ -132,23 +161,25 @@ h4 { font-size: 1.25rem; }
   padding: 16px 32px;
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   border-radius: var(--radius-full);
   border: none;
   cursor: pointer;
   transition: all var(--transition-normal);
   user-select: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--kama-gold) 0%, var(--kama-gold-dark) 100%);
+  background: var(--gradient-primary);
   color: var(--kama-white);
   box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
 
 .btn-primary:active {
@@ -158,14 +189,15 @@ h4 { font-size: 1.25rem; }
 
 .btn-secondary {
   background: var(--kama-white);
-  color: var(--kama-gray-800);
+  color: var(--kama-gray-900);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--kama-gray-200);
 }
 
 .btn-secondary:hover {
   background: var(--kama-gray-50);
-  border-color: var(--kama-gold-light);
+  border-color: var(--kama-primary-light);
+  transform: translateY(-1px);
 }
 
 .btn-ghost {
@@ -174,13 +206,17 @@ h4 { font-size: 1.25rem; }
 }
 
 .btn-ghost:hover {
-  background: var(--kama-beige);
-  color: var(--kama-gray-800);
+  background: rgba(99, 102, 241, 0.1);
+  /* Primary with opacity */
+  color: var(--kama-primary);
 }
 
 /* Cards */
 .card {
-  background: var(--kama-white);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-lg);
   padding: var(--card-padding);
   box-shadow: var(--shadow-sm);
@@ -188,7 +224,8 @@ h4 { font-size: 1.25rem; }
 }
 
 .card:hover {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(99, 102, 241, 0.2);
 }
 
 .card-interactive {
@@ -197,7 +234,7 @@ h4 { font-size: 1.25rem; }
 
 .card-interactive:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
 }
 
 .card-interactive:active {
@@ -231,7 +268,7 @@ h4 { font-size: 1.25rem; }
   .grid-categories {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .grid-products {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -251,29 +288,36 @@ h4 { font-size: 1.25rem; }
    ============================================ */
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes scaleIn {
-  from { 
-    opacity: 0; 
-    transform: scale(0.95); 
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  to { 
-    opacity: 1; 
-    transform: scale(1); 
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -290,12 +334,29 @@ h4 { font-size: 1.25rem; }
 }
 
 /* Staggered animations */
-.stagger-1 { animation-delay: 50ms; }
-.stagger-2 { animation-delay: 100ms; }
-.stagger-3 { animation-delay: 150ms; }
-.stagger-4 { animation-delay: 200ms; }
-.stagger-5 { animation-delay: 250ms; }
-.stagger-6 { animation-delay: 300ms; }
+.stagger-1 {
+  animation-delay: 50ms;
+}
+
+.stagger-2 {
+  animation-delay: 100ms;
+}
+
+.stagger-3 {
+  animation-delay: 150ms;
+}
+
+.stagger-4 {
+  animation-delay: 200ms;
+}
+
+.stagger-5 {
+  animation-delay: 250ms;
+}
+
+.stagger-6 {
+  animation-delay: 300ms;
+}
 
 /* ============================================
    Scrollbar Styling
