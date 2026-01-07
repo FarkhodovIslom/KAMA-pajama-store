@@ -58,7 +58,7 @@ export default function CartPage() {
 
             <main className="container py-8">
                 <h1 className="text-3xl font-bold text-[var(--kama-gray-900)] mb-8">
-                    Ваш заказ
+                    Sizning buyurtmangiz
                 </h1>
 
                 {items.length === 0 && !orderNumber ? (
@@ -71,13 +71,13 @@ export default function CartPage() {
                             </svg>
                         </div>
                         <h2 className="text-xl font-semibold text-[var(--kama-gray-700)] mb-2">
-                            Корзина пуста
+                            Savatcha bo&apos;sh
                         </h2>
                         <p className="text-[var(--kama-gray-500)] mb-6">
-                            Добавьте товары из каталога
+                            Katalogdan mahsulotlar qo&apos;shing
                         </p>
                         <Link href="/">
-                            <Button>Перейти в каталог</Button>
+                            <Button>Katalogga o&apos;tish</Button>
                         </Link>
                     </div>
                 ) : (
@@ -147,7 +147,7 @@ export default function CartPage() {
                                     <button
                                         onClick={() => removeItem(item.productId, item.color, item.size)}
                                         className="w-10 h-10 rounded-lg hover:bg-[var(--kama-error)] hover:text-white transition-colors flex items-center justify-center"
-                                        aria-label="Удалить"
+                                        aria-label="O&apos;chirish"
                                     >
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                             <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
@@ -162,7 +162,7 @@ export default function CartPage() {
                                     onClick={() => setShowConfirmClear(true)}
                                     className="text-[var(--kama-gray-500)] hover:text-[var(--kama-error)] transition-colors text-sm"
                                 >
-                                    Очистить заказ
+                                    Buyurtmani tozalash
                                 </button>
                             )}
                         </div>
@@ -172,16 +172,16 @@ export default function CartPage() {
                             <div className="lg:col-span-1">
                                 <div className="card sticky top-28">
                                     <h2 className="text-xl font-semibold text-[var(--kama-gray-900)] mb-4">
-                                        Итого
+                                        Jami
                                     </h2>
 
                                     <div className="space-y-2 mb-6">
                                         <div className="flex justify-between text-[var(--kama-gray-600)]">
-                                            <span>Товаров:</span>
-                                            <span>{totalItems} шт.</span>
+                                            <span>Mahsulotlar:</span>
+                                            <span>{totalItems} dona</span>
                                         </div>
                                         <div className="flex justify-between text-xl font-bold text-[var(--kama-gray-900)]">
-                                            <span>Сумма:</span>
+                                            <span>Summa:</span>
                                             <span>{formatPrice(totalPrice)}</span>
                                         </div>
                                     </div>
@@ -192,14 +192,14 @@ export default function CartPage() {
                                         onClick={handleSubmitOrder}
                                         disabled={isSubmitting}
                                     >
-                                        {isSubmitting ? "Оформляем..." : "Готово"}
+                                        {isSubmitting ? "Rasmiylashtirilmoqda..." : "Tamomlash"}
                                     </Button>
 
                                     <Link
                                         href="/"
                                         className="block text-center text-[var(--kama-gold-dark)] hover:text-[var(--kama-gold)] mt-4"
                                     >
-                                        Продолжить покупки
+                                        Xaridni davom ettirish
                                     </Link>
                                 </div>
                             </div>
@@ -212,10 +212,10 @@ export default function CartPage() {
             <Modal
                 isOpen={showConfirmClear}
                 onClose={() => setShowConfirmClear(false)}
-                title="Очистить заказ?"
+                title="Buyurtmani tozalash?"
             >
                 <p className="text-[var(--kama-gray-600)] mb-6">
-                    Все товары будут удалены из заказа. Это действие нельзя отменить.
+                    Buyurtmadagi barcha mahsulotlar o&apos;chiriladi. Bu amalni bekor qilib bo&apos;lmaydi.
                 </p>
                 <div className="flex gap-3">
                     <Button
@@ -223,7 +223,7 @@ export default function CartPage() {
                         onClick={() => setShowConfirmClear(false)}
                         fullWidth
                     >
-                        Отмена
+                        Bekor qilish
                     </Button>
                     <Button
                         onClick={() => {
@@ -233,7 +233,7 @@ export default function CartPage() {
                         fullWidth
                         className="!bg-[var(--kama-error)]"
                     >
-                        Очистить
+                        Tozalash
                     </Button>
                 </div>
             </Modal>
@@ -245,7 +245,7 @@ export default function CartPage() {
                     setShowOrderConfirm(false);
                     setOrderNumber(null);
                 }}
-                title="Заказ оформлен!"
+                title="Buyurtma rasmiylashtirildi!"
             >
                 <div className="text-center py-4">
                     <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-[var(--kama-success)] flex items-center justify-center">
@@ -254,17 +254,17 @@ export default function CartPage() {
                         </svg>
                     </div>
                     <p className="text-lg text-[var(--kama-gray-700)] mb-2">
-                        Номер вашего заказа:
+                        Buyurtma raqamingiz:
                     </p>
                     <p className="text-4xl font-bold text-[var(--kama-gold-dark)] mb-4">
                         #{orderNumber}
                     </p>
                     <p className="text-[var(--kama-gray-500)] mb-6">
-                        Пожалуйста, обратитесь к продавцу для получения товара
+                        Iltimos, mahsulotni olish uchun sotuvchiga murojaat qiling
                     </p>
                     <Link href="/">
                         <Button size="lg" fullWidth>
-                            Новый заказ
+                            Yangi buyurtma
                         </Button>
                     </Link>
                 </div>
@@ -274,7 +274,7 @@ export default function CartPage() {
 }
 
 function formatPrice(price: number): string {
-    return new Intl.NumberFormat("ru-RU", {
+    return new Intl.NumberFormat("uz-UZ", {
         style: "currency",
         currency: "UZS",
         maximumFractionDigits: 0,

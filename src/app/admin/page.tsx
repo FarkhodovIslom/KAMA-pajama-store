@@ -5,7 +5,7 @@ export default function AdminDashboard() {
     return (
         <div>
             <h1 className="text-2xl font-bold text-[var(--kama-gray-900)] mb-8">
-                Панель управления
+                Boshqaruv paneli
             </h1>
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -21,8 +21,8 @@ export default function AdminDashboard() {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className="font-semibold text-[var(--kama-gray-900)]">Категории</h2>
-                                <p className="text-sm text-[var(--kama-gray-500)]">Управление категориями товаров</p>
+                                <h2 className="font-semibold text-[var(--kama-gray-900)]">Kategoriyalar</h2>
+                                <p className="text-sm text-[var(--kama-gray-500)]">Mahsulot kategoriyalarini boshqarish</p>
                             </div>
                         </div>
                     </Card>
@@ -39,8 +39,8 @@ export default function AdminDashboard() {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className="font-semibold text-[var(--kama-gray-900)]">Товары</h2>
-                                <p className="text-sm text-[var(--kama-gray-500)]">Добавление и редактирование товаров</p>
+                                <h2 className="font-semibold text-[var(--kama-gray-900)]">Mahsulotlar</h2>
+                                <p className="text-sm text-[var(--kama-gray-500)]">Mahsulot qo&apos;shish va tahrirlash</p>
                             </div>
                         </div>
                     </Card>
@@ -58,8 +58,8 @@ export default function AdminDashboard() {
                                 </svg>
                             </div>
                             <div>
-                                <h2 className="font-semibold text-[var(--kama-gray-900)]">Заказы</h2>
-                                <p className="text-sm text-[var(--kama-gray-500)]">Просмотр и управление заказами</p>
+                                <h2 className="font-semibold text-[var(--kama-gray-900)]">Buyurtmalar</h2>
+                                <p className="text-sm text-[var(--kama-gray-500)]">Buyurtmalarni ko&apos;rish va boshqarish</p>
                             </div>
                         </div>
                     </Card>

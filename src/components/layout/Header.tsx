@@ -29,8 +29,8 @@ export default function Header({ cartCount = 0 }: HeaderProps) {
                 <Link
                     href="/cart"
                     className={`relative flex items-center gap-2 px-5 py-3 rounded-full transition-all ${isCartPage
-                            ? "bg-[var(--kama-gold)] text-white"
-                            : "bg-white shadow-sm hover:shadow-md"
+                        ? "bg-[var(--kama-gold)] text-white"
+                        : "bg-white shadow-sm hover:shadow-md"
                         }`}
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -38,7 +38,7 @@ export default function Header({ cartCount = 0 }: HeaderProps) {
                         <line x1="3" y1="6" x2="21" y2="6" />
                         <path d="M16 10a4 4 0 0 1-8 0" />
                     </svg>
-                    <span className="font-medium">Заказ</span>
+                    <span className="font-medium">Buyurtma</span>
                     {cartCount > 0 && (
                         <span className="absolute -top-1 -right-1 w-6 h-6 bg-[var(--kama-gold)] text-white text-sm font-bold rounded-full flex items-center justify-center shadow">
                             {cartCount}

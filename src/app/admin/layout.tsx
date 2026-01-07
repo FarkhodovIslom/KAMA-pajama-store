@@ -20,19 +20,19 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                 href="/admin/categories"
                                 className="text-[var(--kama-gray-600)] hover:text-[var(--kama-gold)] transition-colors"
                             >
-                                Категории
+                                Kategoriyalar
                             </Link>
                             <Link
                                 href="/admin/products"
                                 className="text-[var(--kama-gray-600)] hover:text-[var(--kama-gold)] transition-colors"
                             >
-                                Товары
+                                Mahsulotlar
                             </Link>
                             <Link
                                 href="/admin/orders"
                                 className="text-[var(--kama-gray-600)] hover:text-[var(--kama-gold)] transition-colors"
                             >
-                                Заказы
+                                Buyurtmalar
                             </Link>
                         </nav>
                     </div>
@@ -41,7 +41,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                         href="/"
                         className="text-sm text-[var(--kama-gray-500)] hover:text-[var(--kama-gold)] transition-colors"
                     >
-                        ← Каталог
+                        ← Katalog
                     </Link>
                 </div>
             </header>

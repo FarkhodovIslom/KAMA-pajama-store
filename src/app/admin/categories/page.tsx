@@ -80,10 +80,10 @@ export default function CategoriesPage() {
             .replace(/\s+/g, "-")
             .replace(/[а-я]/g, (char) => {
                 const map: Record<string, string> = {
-                    а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "yo", ж: "zh",
+                    а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "yo", ж: "j",
                     з: "z", и: "i", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o",
                     п: "p", р: "r", с: "s", т: "t", у: "u", ф: "f", х: "h", ц: "ts",
-                    ч: "ch", ш: "sh", щ: "sch", ы: "y", э: "e", ю: "yu", я: "ya",
+                    ч: "ch", ш: "sh", щ: "sh", ы: "y", э: "e", ю: "yu", я: "ya",
                 };
                 return map[char] || char;
             });
@@ -93,10 +93,10 @@ export default function CategoriesPage() {
         <div>
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-2xl font-bold text-[var(--kama-gray-900)]">
-                    Категории
+                    Kategoriyalar
                 </h1>
                 <Button onClick={openCreateModal}>
-                    + Добавить категорию
+                    + Kategoriya qo&apos;shish
                 </Button>
             </div>
 
@@ -108,8 +108,8 @@ export default function CategoriesPage() {
                 </div>
             ) : categories.length === 0 ? (
                 <Card className="text-center py-12">
-                    <p className="text-[var(--kama-gray-500)] mb-4">Категорий пока нет</p>
-                    <Button onClick={openCreateModal}>Создать первую категорию</Button>
+                    <p className="text-[var(--kama-gray-500)] mb-4">Kategoriyalar mavjud emas</p>
+                    <Button onClick={openCreateModal}>Birinchi kategoriyani yaratish</Button>
                 </Card>
             ) : (
                 <div className="space-y-3">
@@ -124,7 +124,7 @@ export default function CategoriesPage() {
                                         {category.name}
                                     </h3>
                                     <p className="text-sm text-[var(--kama-gray-500)]">
-                                        /{category.slug} • {category._count?.products || 0} товаров
+                                        /{category.slug} • {category._count?.products || 0} ta mahsulot
                                     </p>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@ export default function CategoriesPage() {
                                     size="sm"
                                     onClick={() => openEditModal(category)}
                                 >
-                                    Изменить
+                                    Tahrirlash
                                 </Button>
                                 <Button
                                     variant="ghost"
@@ -142,7 +142,7 @@ export default function CategoriesPage() {
                                     onClick={() => setShowDeleteConfirm(category.id)}
                                     className="text-[var(--kama-error)]"
                                 >
-                                    Удалить
+                                    O&apos;chirish
                                 </Button>
                             </div>
                         </Card>
@@ -154,12 +154,12 @@ export default function CategoriesPage() {
             <Modal
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
-                title={editingCategory ? "Редактировать категорию" : "Новая категория"}
+                title={editingCategory ? "Kategoriyani tahrirlash" : "Yangi kategoriya"}
             >
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Название
+                            Nomi
                         </label>
                         <input
                             type="text"
@@ -190,7 +190,7 @@ export default function CategoriesPage() {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Порядок
+                            Tartib raqami
                         </label>
                         <input
                             type="number"
@@ -201,10 +201,10 @@ export default function CategoriesPage() {
                     </div>
                     <div className="flex gap-3 pt-4">
                         <Button type="button" variant="secondary" onClick={() => setShowModal(false)} fullWidth>
-                            Отмена
+                            Bekor qilish
                         </Button>
                         <Button type="submit" fullWidth>
-                            {editingCategory ? "Сохранить" : "Создать"}
+                            {editingCategory ? "Saqlash" : "Yaratish"}
                         </Button>
                     </div>
                 </form>
@@ -214,17 +214,17 @@ export default function CategoriesPage() {
             <Modal
                 isOpen={!!showDeleteConfirm}
                 onClose={() => setShowDeleteConfirm(null)}
-                title="Удалить категорию?"
+                title="Kategoriyani o'chirish?"
             >
                 <p className="text-[var(--kama-gray-600)] mb-6">
-                    Все товары в этой категории также будут удалены. Это действие нельзя отменить.
+                    Ushbu kategoriyadagi barcha mahsulotlar o&apos;chiriladi. Bu amalni bekor qilib bo&apos;lmaydi.
                 </p>
                 <div className="flex gap-3">
                     <Button variant="secondary" onClick={() => setShowDeleteConfirm(null)} fullWidth>
-                        Отмена
+                        Bekor qilish
                     </Button>
                     <Button onClick={() => showDeleteConfirm && handleDelete(showDeleteConfirm)} fullWidth className="!bg-[var(--kama-error)]">
-                        Удалить
+                        O&apos;chirish
                     </Button>
                 </div>
             </Modal>

@@ -118,7 +118,7 @@ export default function ProductsPage() {
             description: "",
             price: 0,
             categoryId: categories[0]?.id || "",
-            colors: "Белый, Розовый, Серый",
+            colors: "Oq, Pushti, Kulrang",
             sizes: "S, M, L, XL",
         });
         setShowModal(true);
@@ -128,19 +128,19 @@ export default function ProductsPage() {
         <div>
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-2xl font-bold text-[var(--kama-gray-900)]">
-                    Товары
+                    Mahsulotlar
                 </h1>
                 <Button onClick={openCreateModal} disabled={categories.length === 0}>
-                    + Добавить товар
+                    + Mahsulot qo&apos;shish
                 </Button>
             </div>
 
             {categories.length === 0 && !isLoading && (
                 <Card className="bg-[var(--kama-warning)] border-none mb-6">
                     <p className="text-[var(--kama-gray-800)]">
-                        Сначала создайте хотя бы одну категорию.{" "}
+                        Avval kamida bitta kategoriya yarating.{" "}
                         <Link href="/admin/categories" className="underline font-medium">
-                            Создать категорию →
+                            Kategoriya yaratish →
                         </Link>
                     </p>
                 </Card>
@@ -154,9 +154,9 @@ export default function ProductsPage() {
                 </div>
             ) : products.length === 0 ? (
                 <Card className="text-center py-12">
-                    <p className="text-[var(--kama-gray-500)] mb-4">Товаров пока нет</p>
+                    <p className="text-[var(--kama-gray-500)] mb-4">Mahsulotlar mavjud emas</p>
                     {categories.length > 0 && (
-                        <Button onClick={openCreateModal}>Создать первый товар</Button>
+                        <Button onClick={openCreateModal}>Birinchi mahsulotni yaratish</Button>
                     )}
                 </Card>
             ) : (
@@ -187,13 +187,13 @@ export default function ProductsPage() {
                                         {product.category.name} • {formatPrice(product.price)}
                                     </p>
                                     <p className="text-xs text-[var(--kama-gray-400)]">
-                                        {product.variants.length} вариантов
+                                        {product.variants.length} ta variant
                                     </p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Button variant="ghost" size="sm" onClick={() => openEditModal(product)}>
-                                    Изменить
+                                    Tahrirlash
                                 </Button>
                                 <Button
                                     variant="ghost"
@@ -201,7 +201,7 @@ export default function ProductsPage() {
                                     onClick={() => setShowDeleteConfirm(product.id)}
                                     className="text-[var(--kama-error)]"
                                 >
-                                    Удалить
+                                    O&apos;chirish
                                 </Button>
                             </div>
                         </Card>
@@ -213,12 +213,12 @@ export default function ProductsPage() {
             <Modal
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
-                title={editingProduct ? "Редактировать товар" : "Новый товар"}
+                title={editingProduct ? "Mahsulotni tahrirlash" : "Yangi mahsulot"}
             >
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Название
+                            Nomi
                         </label>
                         <input
                             type="text"
@@ -230,7 +230,7 @@ export default function ProductsPage() {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Категория
+                            Kategoriya
                         </label>
                         <select
                             value={formData.categoryId}
@@ -238,7 +238,7 @@ export default function ProductsPage() {
                             className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
                             required
                         >
-                            <option value="">Выберите категорию</option>
+                            <option value="">Kategoriyani tanlang</option>
                             {categories.map((cat) => (
                                 <option key={cat.id} value={cat.id}>
                                     {cat.name}
@@ -248,7 +248,7 @@ export default function ProductsPage() {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Цена (UZS)
+                            Narx (UZS)
                         </label>
                         <input
                             type="number"
@@ -262,19 +262,19 @@ export default function ProductsPage() {
                         <>
                             <div>
                                 <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                                    Цвета (через запятую)
+                                    Ranglar (vergul bilan)
                                 </label>
                                 <input
                                     type="text"
                                     value={formData.colors}
                                     onChange={(e) => setFormData({ ...formData, colors: e.target.value })}
                                     className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
-                                    placeholder="Белый, Розовый, Серый"
+                                    placeholder="Oq, Pushti, Kulrang"
                                 />
                             </div>
                             <div>
                                 <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                                    Размеры (через запятую)
+                                    O&apos;lchamlar (vergul bilan)
                                 </label>
                                 <input
                                     type="text"
@@ -288,10 +288,10 @@ export default function ProductsPage() {
                     )}
                     <div className="flex gap-3 pt-4">
                         <Button type="button" variant="secondary" onClick={() => setShowModal(false)} fullWidth>
-                            Отмена
+                            Bekor qilish
                         </Button>
                         <Button type="submit" fullWidth>
-                            {editingProduct ? "Сохранить" : "Создать"}
+                            {editingProduct ? "Saqlash" : "Yaratish"}
                         </Button>
                     </div>
                 </form>
@@ -301,17 +301,17 @@ export default function ProductsPage() {
             <Modal
                 isOpen={!!showDeleteConfirm}
                 onClose={() => setShowDeleteConfirm(null)}
-                title="Удалить товар?"
+                title="Mahsulotni o'chirish?"
             >
                 <p className="text-[var(--kama-gray-600)] mb-6">
-                    Это действие нельзя отменить.
+                    Bu amalni bekor qilib bo&apos;lmaydi.
                 </p>
                 <div className="flex gap-3">
                     <Button variant="secondary" onClick={() => setShowDeleteConfirm(null)} fullWidth>
-                        Отмена
+                        Bekor qilish
                     </Button>
                     <Button onClick={() => showDeleteConfirm && handleDelete(showDeleteConfirm)} fullWidth className="!bg-[var(--kama-error)]">
-                        Удалить
+                        O&apos;chirish
                     </Button>
                 </div>
             </Modal>
@@ -320,7 +320,7 @@ export default function ProductsPage() {
 }
 
 function formatPrice(price: number): string {
-    return new Intl.NumberFormat("ru-RU", {
+    return new Intl.NumberFormat("uz-UZ", {
         style: "currency",
         currency: "UZS",
         maximumFractionDigits: 0,

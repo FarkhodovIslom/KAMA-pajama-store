@@ -49,7 +49,7 @@ export default function ProductCard({ id, name, price, image }: ProductCardProps
 }
 
 function formatPrice(price: number): string {
-    return new Intl.NumberFormat("ru-RU", {
+    return new Intl.NumberFormat("uz-UZ", {
         style: "currency",
         currency: "UZS",
         maximumFractionDigits: 0,

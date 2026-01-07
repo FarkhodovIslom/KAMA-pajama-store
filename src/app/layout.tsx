@@ -16,8 +16,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "KAMA | Магазин пижам",
-  description: "Интерактивный каталог пижам KAMA — выберите идеальную пижаму в нашем магазине",
+  title: "KAMA | Pijama do'koni",
+  description: "KAMA interaktiv pijama katalogi — do'konimizdan mukammal pijamani tanlang",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang="uz">
       <body className={`${outfit.variable} ${inter.variable}`}>
         <CartProvider>
           {children}

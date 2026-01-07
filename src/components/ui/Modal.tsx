@@ -47,7 +47,7 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
                         <button
                             onClick={onClose}
                             className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[var(--kama-beige)] transition-colors"
-                            aria-label="Закрыть"
+                            aria-label="Yopish"
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M18 6L6 18M6 6l12 12" />

@@ -55,9 +55,9 @@ export default function OrdersPage() {
         : orders.filter((o) => o.status === filter);
 
     const statusLabels = {
-        PENDING: "Ожидает",
-        COMPLETED: "Выполнен",
-        CANCELLED: "Отменён",
+        PENDING: "Kutilmoqda",
+        COMPLETED: "Bajarildi",
+        CANCELLED: "Bekor qilindi",
     };
 
     const statusColors = {
@@ -70,7 +70,7 @@ export default function OrdersPage() {
         <div>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <h1 className="text-2xl font-bold text-[var(--kama-gray-900)]">
-                    Заказы
+                    Buyurtmalar
                 </h1>
                 <div className="flex gap-2">
                     {(["ALL", "PENDING", "COMPLETED", "CANCELLED"] as const).map((status) => (
@@ -78,11 +78,11 @@ export default function OrdersPage() {
                             key={status}
                             onClick={() => setFilter(status)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${filter === status
-                                    ? "bg-[var(--kama-gold)] text-white"
-                                    : "bg-white text-[var(--kama-gray-600)] hover:bg-[var(--kama-beige)]"
+                                ? "bg-[var(--kama-gold)] text-white"
+                                : "bg-white text-[var(--kama-gray-600)] hover:bg-[var(--kama-beige)]"
                                 }`}
                         >
-                            {status === "ALL" ? "Все" : statusLabels[status]}
+                            {status === "ALL" ? "Barchasi" : statusLabels[status]}
                         </button>
                     ))}
                 </div>
@@ -97,7 +97,7 @@ export default function OrdersPage() {
             ) : filteredOrders.length === 0 ? (
                 <Card className="text-center py-12">
                     <p className="text-[var(--kama-gray-500)]">
-                        {filter === "ALL" ? "Заказов пока нет" : "Нет заказов с таким статусом"}
+                        {filter === "ALL" ? "Buyurtmalar mavjud emas" : "Ushbu statusda buyurtmalar mavjud emas"}
                     </p>
                 </Card>
             ) : (
@@ -117,13 +117,13 @@ export default function OrdersPage() {
                                 </div>
                                 <div>
                                     <h3 className="font-semibold text-[var(--kama-gray-900)]">
-                                        Заказ #{order.id}
+                                        Buyurtma #{order.id}
                                     </h3>
                                     <p className="text-sm text-[var(--kama-gray-500)]">
-                                        {order.items.length} товаров • {formatPrice(order.total)}
+                                        {order.items.length} ta mahsulot • {formatPrice(order.total)}
                                     </p>
                                     <p className="text-xs text-[var(--kama-gray-400)]">
-                                        {new Date(order.createdAt).toLocaleString("ru-RU")}
+                                        {new Date(order.createdAt).toLocaleString("uz-UZ")}
                                     </p>
                                 </div>
                             </div>
@@ -139,19 +139,19 @@ export default function OrdersPage() {
             <Modal
                 isOpen={!!selectedOrder}
                 onClose={() => setSelectedOrder(null)}
-                title={`Заказ #${selectedOrder?.id}`}
+                title={`Buyurtma #${selectedOrder?.id}`}
             >
                 {selectedOrder && (
                     <div className="space-y-6">
                         <div className="flex justify-between items-center">
-                            <span className="text-[var(--kama-gray-500)]">Статус:</span>
+                            <span className="text-[var(--kama-gray-500)]">Holati:</span>
                             <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[selectedOrder.status]}`}>
                                 {statusLabels[selectedOrder.status]}
                             </span>
                         </div>
 
                         <div className="border-t border-[var(--kama-gray-200)] pt-4">
-                            <h4 className="font-semibold text-[var(--kama-gray-900)] mb-3">Товары:</h4>
+                            <h4 className="font-semibold text-[var(--kama-gray-900)] mb-3">Mahsulotlar:</h4>
                             <div className="space-y-2">
                                 {selectedOrder.items.map((item) => (
                                     <div key={item.id} className="flex justify-between text-sm">
@@ -168,7 +168,7 @@ export default function OrdersPage() {
                         </div>
 
                         <div className="flex justify-between font-bold text-lg border-t border-[var(--kama-gray-200)] pt-4">
-                            <span>Итого:</span>
+                            <span>Jami:</span>
                             <span className="text-[var(--kama-gold-dark)]">{formatPrice(selectedOrder.total)}</span>
                         </div>
 
@@ -180,13 +180,13 @@ export default function OrdersPage() {
                                     fullWidth
                                     className="!text-[var(--kama-error)]"
                                 >
-                                    Отменить
+                                    Bekor qilish
                                 </Button>
                                 <Button
                                     onClick={() => updateStatus(selectedOrder.id, "COMPLETED")}
                                     fullWidth
                                 >
-                                    Выполнен
+                                    Bajarildi
                                 </Button>
                             </div>
                         )}
@@ -198,7 +198,7 @@ export default function OrdersPage() {
 }
 
 function formatPrice(price: number): string {
-    return new Intl.NumberFormat("ru-RU", {
+    return new Intl.NumberFormat("uz-UZ", {
         style: "currency",
         currency: "UZS",
         maximumFractionDigits: 0,

@@ -38,10 +38,10 @@ export default function HomePage() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-[var(--kama-gray-900)] mb-4">
-            Добро пожаловать в KAMA
+            KAMAga xush kelibsiz
           </h1>
           <p className="text-lg text-[var(--kama-gray-500)] max-w-2xl mx-auto">
-            Выберите категорию, чтобы найти идеальную пижаму для себя и своих близких
+            O&apos;zingiz va yaqinlaringiz uchun mukammal pijamani topish uchun toifani tanlang
           </p>
         </div>
 
@@ -81,10 +81,10 @@ export default function HomePage() {
               </svg>
             </div>
             <h2 className="text-xl font-semibold text-[var(--kama-gray-700)] mb-2">
-              Каталог пуст
+              Katalog bo&apos;sh
             </h2>
             <p className="text-[var(--kama-gray-500)]">
-              Категории товаров скоро появятся
+              Mahsulot toifalari tez orada paydo bo&apos;ladi
             </p>
           </div>
         )}
