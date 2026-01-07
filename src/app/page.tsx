@@ -81,7 +81,7 @@ export default function HomePage() {
                 <motion.div
                   key={i}
                   variants={item}
-                  className="card h-56 animate-pulse bg-gradient-to-br from-indigo-50/50 to-pink-50/50 border border-white/50"
+                  className="card h-56 animate-pulse bg-gradient-to-br from-amber-50/50 to-yellow-50/50 border border-white/50"
                 />
               ))}
             </motion.div>
@@ -117,7 +117,7 @@ export default function HomePage() {
               transition={{ type: "spring" }}
               className="text-center py-24"
             >
-              <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-tr from-indigo-50 to-pink-50 flex items-center justify-center relative overflow-hidden">
+              <div className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-to-tr from-amber-50 to-yellow-50 flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-white/40 backdrop-blur-sm -z-10"></div>
                 <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--kama-primary)" strokeWidth="1.5">
                   <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />

@@ -25,7 +25,7 @@ export default function Header({ cartCount = 0 }: HeaderProps) {
                     <motion.div
                         whileHover={{ rotate: 10, scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 rounded-2xl bg-[var(--gradient-primary)] flex items-center justify-center shadow-lg shadow-indigo-500/30"
+                        className="w-12 h-12 rounded-2xl bg-[var(--gradient-primary)] flex items-center justify-center shadow-lg shadow-amber-500/30"
                     >
                         <span className="text-white font-bold text-xl">K</span>
                     </motion.div>
@@ -40,8 +40,8 @@ export default function Header({ cartCount = 0 }: HeaderProps) {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className={`relative flex items-center gap-2 px-5 py-3 rounded-full transition-colors ${isCartPage
-                                ? "bg-[var(--kama-primary)] text-white shadow-lg shadow-indigo-500/25"
-                                : "bg-white text-[var(--kama-gray-700)] shadow-sm hover:shadow-md border border-[var(--kama-gray-100)]"
+                            ? "bg-[var(--kama-primary)] text-white shadow-lg shadow-amber-500/25"
+                            : "bg-white text-[var(--kama-gray-700)] shadow-sm hover:shadow-md border border-[var(--kama-gray-100)]"
                             }`}
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -8,41 +8,54 @@
    ============================================ */
 
 :root {
-  /* Brand Colors - Vibrant & Modern */
-  --kama-primary: #6366f1;
-  /* Indigo 500 */
-  --kama-primary-light: #818cf8;
-  /* Indigo 400 */
-  --kama-primary-dark: #4f46e5;
-  /* Indigo 600 */
+  /* Brand Colors - Premium Gold Palette */
+  --kama-primary: #d4af37;
+  /* Classic Gold */
+  --kama-primary-light: #f4d03f;
+  /* Bright Gold */
+  --kama-primary-dark: #b8860b;
+  /* Dark Goldenrod */
 
-  --kama-accent: #f472b6;
-  /* Pink 400 */
-  --kama-accent-light: #fbcfe8;
-  /* Pink 200 */
-  --kama-accent-dark: #db2777;
-  /* Pink 600 */
+  --kama-accent: #cd7f32;
+  /* Bronze */
+  --kama-accent-light: #daa520;
+  /* Goldenrod */
+  --kama-accent-dark: #8b5a00;
+  /* Deep Bronze */
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-  --gradient-accent: linear-gradient(135deg, #f472b6 0%, #fb7185 100%);
-  --gradient-mesh: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(244, 114, 182, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(56, 189, 248, 0.15) 0px, transparent 50%);
+  --kama-champagne: #f7e7ce;
+  /* Champagne */
+  --kama-beige: #f5f5dc;
+  /* Beige */
+  --kama-cream: #fffdd0;
+  /* Cream */
 
-  /* Neutral Colors - Clean & Sharp */
+  --kama-rose-gold: #b76e79;
+  /* Rose Gold */
+  --kama-copper: #b87333;
+  /* Copper */
+
+  /* Gradients - Luxurious Gold */
+  --gradient-primary: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #b8860b 100%);
+  --gradient-accent: linear-gradient(135deg, #cd7f32 0%, #daa520 100%);
+  --gradient-rose: linear-gradient(135deg, #d4af37 0%, #b76e79 100%);
+  --gradient-mesh: radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(205, 127, 50, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(183, 110, 121, 0.12) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(244, 208, 63, 0.12) 0px, transparent 50%);
+
+  /* Neutral Colors - Warm Tones */
   --kama-white: #ffffff;
-  --kama-gray-50: #f8fafc;
-  --kama-gray-100: #f1f5f9;
-  --kama-gray-200: #e2e8f0;
-  --kama-gray-300: #cbd5e1;
-  --kama-gray-400: #94a3b8;
-  --kama-gray-500: #64748b;
-  --kama-gray-600: #475569;
-  --kama-gray-700: #334155;
-  --kama-gray-800: #1e293b;
-  --kama-gray-900: #0f172a;
+  --kama-gray-50: #faf9f7;
+  --kama-gray-100: #f5f3f0;
+  --kama-gray-200: #ebe8e3;
+  --kama-gray-300: #d4cfc7;
+  --kama-gray-400: #a6a099;
+  --kama-gray-500: #736f68;
+  --kama-gray-600: #5a564f;
+  --kama-gray-700: #3f3c37;
+  --kama-gray-800: #2b2926;
+  --kama-gray-900: #1a1816;
 
   /* Semantic Colors */
   --kama-success: #22c55e;
@@ -65,12 +78,12 @@
   --radius-xl: 32px;
   --radius-full: 9999px;
 
-  /* Shadows - Soft & Modern */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+  /* Shadows - Soft & Luxurious */
+  --shadow-sm: 0 1px 2px 0 rgba(212, 175, 55, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(212, 175, 55, 0.12), 0 2px 4px -2px rgba(212, 175, 55, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(212, 175, 55, 0.15), 0 4px 6px -4px rgba(212, 175, 55, 0.08);
+  --shadow-xl: 0 20px 25px -5px rgba(212, 175, 55, 0.2), 0 8px 10px -6px rgba(212, 175, 55, 0.12);
+  --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.4);
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -195,7 +208,7 @@ h4 {
 }
 
 .btn-secondary:hover {
-  background: var(--kama-gray-50);
+  background: var(--kama-champagne);
   border-color: var(--kama-primary-light);
   transform: translateY(-1px);
 }
@@ -206,8 +219,8 @@ h4 {
 }
 
 .btn-ghost:hover {
-  background: rgba(99, 102, 241, 0.1);
-  /* Primary with opacity */
+  background: rgba(212, 175, 55, 0.1);
+  /* Gold with opacity */
   color: var(--kama-primary);
 }
 
@@ -225,7 +238,7 @@ h4 {
 
 .card:hover {
   box-shadow: var(--shadow-lg);
-  border-color: rgba(99, 102, 241, 0.2);
+  border-color: rgba(212, 175, 55, 0.3);
 }
 
 .card-interactive {

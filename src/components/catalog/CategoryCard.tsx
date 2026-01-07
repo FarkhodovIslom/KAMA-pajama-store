@@ -21,9 +21,9 @@ export default function CategoryCard({ name, slug, icon, productCount }: Categor
                 transition={{ type: "spring", stiffness: 300 }}
                 className="h-full"
             >
-                <Card interactive padding="lg" className="text-center h-full border-transparent hover:border-indigo-100 dark:border-indigo-900/50">
+                <Card interactive padding="lg" className="text-center h-full border-transparent hover:border-amber-100 dark:border-amber-900/50">
                     {/* Icon */}
-                    <div className="group relative w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-tr from-indigo-50 to-pink-50 flex items-center justify-center transition-all duration-300 group-hover:from-indigo-100 group-hover:to-pink-100 group-hover:shadow-xl group-hover:shadow-indigo-500/20">
+                    <div className="group relative w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-tr from-amber-50 to-yellow-50 flex items-center justify-center transition-all duration-300 group-hover:from-amber-100 group-hover:to-yellow-100 group-hover:shadow-xl group-hover:shadow-amber-500/20">
                         {icon ? (
                             <Image
                                 src={icon}
