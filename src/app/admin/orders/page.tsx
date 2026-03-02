@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button, Card, Modal } from "@/components/ui";
+import { formatPrice } from "@/lib/utils";
 
 interface OrderItem {
     id: string;
@@ -197,10 +198,3 @@ export default function OrdersPage() {
     );
 }
 
-function formatPrice(price: number): string {
-    return new Intl.NumberFormat("uz-UZ", {
-        style: "currency",
-        currency: "UZS",
-        maximumFractionDigits: 0,
-    }).format(price);
-}

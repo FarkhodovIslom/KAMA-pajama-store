@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit, Inter } from "next/font/google";
 import { CartProvider } from "@/contexts/CartContext";
+import BottomNav from "@/components/layout/BottomNav";
+import { ToastProvider } from "@/components/ui/Toast";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -39,13 +41,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="uz">
-      <body className={`${outfit.variable} ${inter.variable}`}>
+  return <html lang="uz" className={`${outfit.variable} ${inter.variable}`}>
+    <body className="font-body text-[var(--kama-gray-800)] antialiased min-h-screen flex flex-col pt-safe bg-[var(--kama-gray-50)] md:pb-0">
+      <ToastProvider>
         <CartProvider>
-          {children}
+          <div className="flex-1 flex flex-col">
+            {children}
+          </div>
+          <BottomNav />
         </CartProvider>
-      </body>
-    </html>
-  );
+      </ToastProvider>
+    </body>
+  </html>
 }

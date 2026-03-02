@@ -14,43 +14,55 @@ interface CategoryCardProps {
 }
 
 export default function CategoryCard({ name, slug, icon, productCount }: CategoryCardProps) {
+    const isSale = slug === "sale" || slug === "rasprodaja" || name.toLowerCase().includes("sale") || name.toLowerCase().includes("aksik");
+
     return (
-        <Link href={`/category/${slug}`} className="block h-full">
+        <Link href={`/category/${slug}`} className="block h-full group">
             <motion.div
-                whileHover={{ y: -8 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="h-full"
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2 }}
+                className={`h-full relative rounded-3xl overflow-hidden shadow-sm hover:shadow-md border border-[var(--kama-gray-100)] flex flex-col items-center justify-center p-6 text-center ${isSale ? "bg-[var(--kama-champagne)] border-[var(--kama-primary-light)/30]" : "bg-white"
+                    }`}
             >
-                <Card interactive padding="lg" className="text-center h-full border-transparent hover:border-amber-100 dark:border-amber-900/50">
-                    {/* Icon */}
-                    <div className="group relative w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-tr from-amber-50 to-yellow-50 flex items-center justify-center transition-all duration-300 group-hover:from-amber-100 group-hover:to-yellow-100 group-hover:shadow-xl group-hover:shadow-amber-500/20">
-                        {icon ? (
-                            <Image
-                                src={icon}
-                                alt={name}
-                                width={48}
-                                height={48}
-                                className="object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-110"
-                            />
-                        ) : (
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--kama-primary)" strokeWidth="1.5" className="transition-transform duration-300 group-hover:scale-110">
-                                <path d="M16 6a4 4 0 1 1-8 0" strokeLinecap="round" />
-                                <path d="M4 14s1-1 4-1 5 2 8 2 4-1 4-1" strokeLinecap="round" />
-                                <path d="M4 14v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6" strokeLinecap="round" />
-                            </svg>
-                        )}
-                    </div>
+                {/* Content */}
+                <div className={`w-16 h-16 mb-4 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110 ${isSale ? "bg-[var(--kama-primary)] text-white" : ""
+                    }`}>
+                    {icon ? (
+                        <Image
+                            src={icon}
+                            alt={name}
+                            width={40}
+                            height={40}
+                            className="object-contain"
+                        />
+                    ) : (
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={isSale ? "currentColor" : "var(--kama-primary)"} strokeWidth="1.5">
+                            {isSale ? (
+                                <>
+                                    <line x1="19" y1="5" x2="5" y2="19"></line>
+                                    <circle cx="6.5" cy="6.5" r="2.5"></circle>
+                                    <circle cx="17.5" cy="17.5" r="2.5"></circle>
+                                </>
+                            ) : (
+                                <>
+                                    <path d="M16 6a4 4 0 1 1-8 0" strokeLinecap="round" />
+                                    <path d="M4 14s1-1 4-1 5 2 8 2 4-1 4-1" strokeLinecap="round" />
+                                    <path d="M4 14v6a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-6" strokeLinecap="round" />
+                                </>
+                            )}
+                        </svg>
+                    )}
+                </div>
 
-                    {/* Name */}
-                    <h3 className="text-lg font-bold text-[var(--kama-gray-900)] mb-1 group-hover:text-[var(--kama-primary)] transition-colors">
-                        {name}
-                    </h3>
+                <h3 className={`text-lg font-bold mb-1.5 transition-colors group-hover:text-[var(--kama-primary)] ${isSale ? "text-[var(--kama-primary-dark)]" : "text-[var(--kama-gray-900)]"
+                    }`}>
+                    {name}
+                </h3>
 
-                    {/* Product Count */}
-                    <p className="text-sm font-medium text-[var(--kama-gray-500)]">
-                        {productCount} ta mahsulot
-                    </p>
-                </Card>
+                <p className={`text-xs font-medium ${isSale ? "text-[var(--kama-primary)]" : "text-[var(--kama-gray-500)]"
+                    }`}>
+                    {productCount} modellar
+                </p>
             </motion.div>
         </Link>
     );

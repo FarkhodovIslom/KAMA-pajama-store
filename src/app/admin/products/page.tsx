@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Button, Card, Modal } from "@/components/ui";
+import { Button, Card, Modal, Input } from "@/components/ui";
+import { formatPrice } from "@/lib/utils";
 
 interface Category {
     id: string;
@@ -216,18 +217,13 @@ export default function ProductsPage() {
                 title={editingProduct ? "Mahsulotni tahrirlash" : "Yangi mahsulot"}
             >
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Nomi
-                        </label>
-                        <input
-                            type="text"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
-                            required
-                        />
-                    </div>
+                    <Input
+                        label="Nomi"
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
+                    />
                     <div>
                         <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
                             Kategoriya
@@ -246,44 +242,31 @@ export default function ProductsPage() {
                             ))}
                         </select>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Narx (UZS)
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.price}
-                            onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) || 0 })}
-                            className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
-                            required
-                        />
-                    </div>
+                    <Input
+                        label="Narx (UZS)"
+                        type="number"
+                        min="0"
+                        step="1000"
+                        value={formData.price}
+                        onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) || 0 })}
+                        required
+                    />
                     {!editingProduct && (
                         <>
-                            <div>
-                                <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                                    Ranglar (vergul bilan)
-                                </label>
-                                <input
-                                    type="text"
-                                    value={formData.colors}
-                                    onChange={(e) => setFormData({ ...formData, colors: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
-                                    placeholder="Oq, Pushti, Kulrang"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                                    O&apos;lchamlar (vergul bilan)
-                                </label>
-                                <input
-                                    type="text"
-                                    value={formData.sizes}
-                                    onChange={(e) => setFormData({ ...formData, sizes: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
-                                    placeholder="S, M, L, XL"
-                                />
-                            </div>
+                            <Input
+                                label="Ranglar (vergul bilan)"
+                                type="text"
+                                value={formData.colors}
+                                onChange={(e) => setFormData({ ...formData, colors: e.target.value })}
+                                placeholder="Oq, Pushti, Kulrang"
+                            />
+                            <Input
+                                label="O'lchamlar (vergul bilan)"
+                                type="text"
+                                value={formData.sizes}
+                                onChange={(e) => setFormData({ ...formData, sizes: e.target.value })}
+                                placeholder="S, M, L, XL"
+                            />
                         </>
                     )}
                     <div className="flex gap-3 pt-4">
@@ -319,10 +302,3 @@ export default function ProductsPage() {
     );
 }
 
-function formatPrice(price: number): string {
-    return new Intl.NumberFormat("uz-UZ", {
-        style: "currency",
-        currency: "UZS",
-        maximumFractionDigits: 0,
-    }).format(price);
-}

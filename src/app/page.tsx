@@ -5,6 +5,7 @@ import { CategoryCard } from "@/components/catalog";
 import { useCart } from "@/contexts/CartContext";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Footer from "@/components/layout/Footer";
 
 interface Category {
   id: string;
@@ -50,21 +51,13 @@ export default function HomePage() {
     <div className="min-h-screen bg-[var(--background)]">
       <Header cartCount={totalItems} />
 
-      <main className="container py-12">
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16 space-y-4"
-        >
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-[var(--gradient-primary)] drop-shadow-sm tracking-tight">
-            KAMAga xush kelibsiz
+      <main className="container max-w-4xl py-12 flex flex-col items-center">
+        {/* Header / Logo Area */}
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-bold tracking-[0.2em] text-[var(--kama-primary)] uppercase">
+            Kama
           </h1>
-          <p className="text-xl text-[var(--kama-gray-600)] max-w-2xl mx-auto font-medium leading-relaxed">
-            O&apos;zingiz va yaqinlaringiz uchun mukammal pijamani topish uchun toifani tanlang
-          </p>
-        </motion.div>
+        </div>
 
         {/* Categories Grid */}
         <AnimatePresence mode="wait">
@@ -81,7 +74,7 @@ export default function HomePage() {
                 <motion.div
                   key={i}
                   variants={item}
-                  className="card h-56 animate-pulse bg-gradient-to-br from-amber-50/50 to-yellow-50/50 border border-white/50"
+                  className="card h-48 animate-pulse bg-white border border-[var(--kama-gray-100)]"
                 />
               ))}
             </motion.div>
@@ -133,6 +126,28 @@ export default function HomePage() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Call Consultant Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="mt-16 text-center"
+        >
+          <a
+            href="https://t.me/example"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 bg-white px-8 py-4 rounded-full shadow-sm hover:shadow-md border border-[var(--kama-gray-100)] transition-all group"
+          >
+            <div className="w-8 h-8 rounded-full bg-[var(--kama-champagne)] flex items-center justify-center text-[var(--kama-primary)] group-hover:bg-[var(--kama-primary)] group-hover:text-white transition-colors">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </div>
+            <span className="font-semibold text-[var(--kama-gray-800)]">Konsultantni chaqirish</span>
+          </a>
+        </motion.div>
       </main>
     </div>
   );

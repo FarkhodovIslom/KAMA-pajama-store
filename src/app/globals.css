@@ -8,41 +8,39 @@
    ============================================ */
 
 :root {
-  /* Brand Colors - Premium Gold Palette */
-  --kama-primary: #d4af37;
-  /* Classic Gold */
-  --kama-primary-light: #f4d03f;
-  /* Bright Gold */
-  --kama-primary-dark: #b8860b;
-  /* Dark Goldenrod */
+  /* Brand Colors - Premium Sunset Palette */
+  --kama-primary: #ef5a34;
+  /* Sunset Orange */
+  --kama-primary-light: #ff7f59;
+  /* Light Orange */
+  --kama-primary-dark: #d34522;
+  /* Dark Orange */
 
-  --kama-accent: #cd7f32;
-  /* Bronze */
-  --kama-accent-light: #daa520;
-  /* Goldenrod */
-  --kama-accent-dark: #8b5a00;
-  /* Deep Bronze */
+  --kama-accent: #ff8c42;
+  /* Coral/Peach */
+  --kama-accent-light: #ffaa73;
+  --kama-accent-dark: #cc6c2c;
 
-  --kama-champagne: #f7e7ce;
-  /* Champagne */
-  --kama-beige: #f5f5dc;
-  /* Beige */
-  --kama-cream: #fffdd0;
-  /* Cream */
+  --kama-champagne: #faede6;
+  /* Very light warm gray/orange tint */
+  --kama-beige: #f9f6f3;
+  /* Off-white */
+  --kama-cream: #ffffff;
+  /* Pure White */
 
-  --kama-rose-gold: #b76e79;
-  /* Rose Gold */
-  --kama-copper: #b87333;
-  /* Copper */
+  --kama-rose-gold: #e28a8a;
+  /* Soft Rose */
+  --kama-copper: #c76f57;
+  /* Copper/Terracotta */
 
-  /* Gradients - Luxurious Gold */
-  --gradient-primary: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #b8860b 100%);
-  --gradient-accent: linear-gradient(135deg, #cd7f32 0%, #daa520 100%);
-  --gradient-rose: linear-gradient(135deg, #d4af37 0%, #b76e79 100%);
-  --gradient-mesh: radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(205, 127, 50, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(183, 110, 121, 0.12) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(244, 208, 63, 0.12) 0px, transparent 50%);
+  /* Gradients - Sunset Orange */
+  --gradient-primary: linear-gradient(135deg, #ef5a34 0%, #ff8c42 100%);
+  --gradient-accent: linear-gradient(135deg, #ff8c42 0%, #ffaa73 100%);
+  --gradient-rose: linear-gradient(135deg, #ef5a34 0%, #e28a8a 100%);
+  --gradient-mesh: radial-gradient(at 0% 0%, rgba(239, 90, 52, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(255, 140, 66, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(226, 138, 138, 0.08) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(255, 127, 89, 0.08) 0px, transparent 50%);
 
   /* Neutral Colors - Warm Tones */
   --kama-white: #ffffff;
@@ -58,9 +56,20 @@
   --kama-gray-900: #1a1816;
 
   /* Semantic Colors */
-  --kama-success: #22c55e;
-  --kama-warning: #f59e0b;
+  --kama-success: #34d399;
+  /* Green from mockup */
+  --kama-warning: #fbbf24;
   --kama-error: #ef4444;
+
+  /* Aliases for legacy code references */
+  --kama-gold: var(--kama-primary);
+  --kama-gold-light: var(--kama-primary-light);
+  --kama-gold-dark: var(--kama-primary-dark);
+  --kama-rose: var(--kama-rose-gold);
+
+  /* Additional Pastel Accents used in Admin UI */
+  --kama-lavender: #e8d5f0;
+  --kama-mint: #d5f0e8;
 
   /* Typography */
   --font-display: 'Outfit', system-ui, sans-serif;
@@ -78,12 +87,12 @@
   --radius-xl: 32px;
   --radius-full: 9999px;
 
-  /* Shadows - Soft & Luxurious */
-  --shadow-sm: 0 1px 2px 0 rgba(212, 175, 55, 0.08);
-  --shadow-md: 0 4px 6px -1px rgba(212, 175, 55, 0.12), 0 2px 4px -2px rgba(212, 175, 55, 0.08);
-  --shadow-lg: 0 10px 15px -3px rgba(212, 175, 55, 0.15), 0 4px 6px -4px rgba(212, 175, 55, 0.08);
-  --shadow-xl: 0 20px 25px -5px rgba(212, 175, 55, 0.2), 0 8px 10px -6px rgba(212, 175, 55, 0.12);
-  --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.4);
+  /* Shadows - Crisp & Modern */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+  --shadow-glow: 0 0 30px rgba(239, 90, 52, 0.3);
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -219,8 +228,8 @@ h4 {
 }
 
 .btn-ghost:hover {
-  background: rgba(212, 175, 55, 0.1);
-  /* Gold with opacity */
+  background: rgba(239, 90, 52, 0.1);
+  /* Orange with opacity */
   color: var(--kama-primary);
 }
 
@@ -238,7 +247,7 @@ h4 {
 
 .card:hover {
   box-shadow: var(--shadow-lg);
-  border-color: rgba(212, 175, 55, 0.3);
+  border-color: rgba(239, 90, 52, 0.2);
 }
 
 .card-interactive {

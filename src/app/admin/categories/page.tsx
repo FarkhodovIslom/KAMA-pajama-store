@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button, Card, Modal } from "@/components/ui";
+import { Button, Card, Modal, Input } from "@/components/ui";
 
 interface Category {
     id: string;
@@ -157,48 +157,33 @@ export default function CategoriesPage() {
                 title={editingCategory ? "Kategoriyani tahrirlash" : "Yangi kategoriya"}
             >
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Nomi
-                        </label>
-                        <input
-                            type="text"
-                            value={formData.name}
-                            onChange={(e) => {
-                                const name = e.target.value;
-                                setFormData({
-                                    ...formData,
-                                    name,
-                                    slug: editingCategory ? formData.slug : generateSlug(name),
-                                });
-                            }}
-                            className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            URL (slug)
-                        </label>
-                        <input
-                            type="text"
-                            value={formData.slug}
-                            onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-[var(--kama-gray-700)] mb-2">
-                            Tartib raqami
-                        </label>
-                        <input
-                            type="number"
-                            value={formData.sortOrder}
-                            onChange={(e) => setFormData({ ...formData, sortOrder: parseInt(e.target.value) || 0 })}
-                            className="w-full px-4 py-3 rounded-xl border border-[var(--kama-gray-200)] focus:border-[var(--kama-gold)] focus:outline-none"
-                        />
-                    </div>
+                    <Input
+                        label="Nomi"
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => {
+                            const name = e.target.value;
+                            setFormData({
+                                ...formData,
+                                name,
+                                slug: editingCategory ? formData.slug : generateSlug(name),
+                            });
+                        }}
+                        required
+                    />
+                    <Input
+                        label="URL (slug)"
+                        type="text"
+                        value={formData.slug}
+                        onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                        required
+                    />
+                    <Input
+                        label="Tartib raqami"
+                        type="number"
+                        value={formData.sortOrder}
+                        onChange={(e) => setFormData({ ...formData, sortOrder: parseInt(e.target.value) || 0 })}
+                    />
                     <div className="flex gap-3 pt-4">
                         <Button type="button" variant="secondary" onClick={() => setShowModal(false)} fullWidth>
                             Bekor qilish

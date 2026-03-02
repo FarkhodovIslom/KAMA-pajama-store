@@ -4,8 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
-import { Button, Modal } from "@/components/ui";
+import { Button, Modal, Input } from "@/components/ui";
+import { useToast } from "@/components/ui/Toast";
+import BottomNav from "@/components/layout/BottomNav";
+import Footer from "@/components/layout/Footer";
 import { useCart } from "@/contexts/CartContext";
+import { formatPrice } from "@/lib/utils";
 
 export default function CartPage() {
     const {
@@ -16,10 +20,17 @@ export default function CartPage() {
         totalItems,
         totalPrice,
     } = useCart();
+    const { showToast } = useToast();
     const [showConfirmClear, setShowConfirmClear] = useState(false);
     const [showOrderConfirm, setShowOrderConfirm] = useState(false);
     const [orderNumber, setOrderNumber] = useState<number | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [customerInfo, setCustomerInfo] = useState({
+        name: "",
+        phone: "+998 ",
+        comment: "",
+    });
 
     const handleSubmitOrder = async () => {
         setIsSubmitting(true);
@@ -45,9 +56,13 @@ export default function CartPage() {
                 setOrderNumber(data.id);
                 setShowOrderConfirm(true);
                 clearCart();
+                showToast("Buyurtma muvaffaqiyatli rasmiylashtirildi", "success");
+            } else {
+                throw new Error("Failed to create order");
             }
         } catch (error) {
             console.error("Failed to submit order:", error);
+            showToast("Xatolik yuz berdi. Iltimos qaytadan urinib ko'ring.", "error");
         }
         setIsSubmitting(false);
     };
@@ -175,13 +190,34 @@ export default function CartPage() {
                                         Jami
                                     </h2>
 
+                                    <div className="space-y-4 mb-6">
+                                        <Input
+                                            label="Ismingiz"
+                                            value={customerInfo.name}
+                                            onChange={(e) => setCustomerInfo({ ...customerInfo, name: e.target.value })}
+                                            placeholder="Masalan: Sardor"
+                                        />
+                                        <Input
+                                            label="Telefon raqamingiz"
+                                            value={customerInfo.phone}
+                                            onChange={(e) => setCustomerInfo({ ...customerInfo, phone: e.target.value })}
+                                        />
+                                        <Input
+                                            label="Qo'shimcha izoh (ixtiyoriy)"
+                                            value={customerInfo.comment}
+                                            onChange={(e) => setCustomerInfo({ ...customerInfo, comment: e.target.value })}
+                                        />
+                                    </div>
+
+                                    <div className="h-px bg-[var(--kama-gray-200)] my-6"></div>
+
                                     <div className="space-y-2 mb-6">
                                         <div className="flex justify-between text-[var(--kama-gray-600)]">
                                             <span>Mahsulotlar:</span>
                                             <span>{totalItems} dona</span>
                                         </div>
                                         <div className="flex justify-between text-xl font-bold text-[var(--kama-gray-900)]">
-                                            <span>Summa:</span>
+                                            <span>Umumiy summa:</span>
                                             <span>{formatPrice(totalPrice)}</span>
                                         </div>
                                     </div>
@@ -190,9 +226,9 @@ export default function CartPage() {
                                         size="lg"
                                         fullWidth
                                         onClick={handleSubmitOrder}
-                                        disabled={isSubmitting}
+                                        disabled={isSubmitting || !customerInfo.name || customerInfo.phone.length < 13}
                                     >
-                                        {isSubmitting ? "Rasmiylashtirilmoqda..." : "Tamomlash"}
+                                        {isSubmitting ? "Rasmiylashtirilmoqda..." : "Buyurtma berish"}
                                     </Button>
 
                                     <Link
@@ -236,10 +272,10 @@ export default function CartPage() {
                         Tozalash
                     </Button>
                 </div>
-            </Modal>
+            </Modal >
 
             {/* Order Confirmation Modal */}
-            <Modal
+            < Modal
                 isOpen={showOrderConfirm}
                 onClose={() => {
                     setShowOrderConfirm(false);
@@ -268,15 +304,10 @@ export default function CartPage() {
                         </Button>
                     </Link>
                 </div>
-            </Modal>
-        </div>
+            </Modal >
+            <Footer />
+            <BottomNav />
+        </div >
     );
 }
 
-function formatPrice(price: number): string {
-    return new Intl.NumberFormat("uz-UZ", {
-        style: "currency",
-        currency: "UZS",
-        maximumFractionDigits: 0,
-    }).format(price);
-}
