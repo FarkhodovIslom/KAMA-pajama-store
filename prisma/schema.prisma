@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Category {
@@ -21,16 +21,19 @@ model Category {
 }
 
 model Product {
-  id          String           @id @default(cuid())
-  name        String
-  description String?
-  price       Float
-  categoryId  String
-  category    Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  images      ProductImage[]
-  variants    ProductVariant[]
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id            String           @id @default(cuid())
+  name          String
+  slug          String?          @unique
+  description   String?
+  price         Float
+  discountPrice Float?
+  isActive      Boolean          @default(true)
+  categoryId    String
+  category      Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  images        ProductImage[]
+  variants      ProductVariant[]
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 }
 
 model ProductImage {
@@ -38,6 +41,7 @@ model ProductImage {
   url       String
   color     String?
   isMain    Boolean @default(false)
+  sortOrder Int     @default(0)
   productId String
   product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 }
@@ -54,12 +58,15 @@ model ProductVariant {
 }
 
 model Order {
-  id        Int         @id @default(autoincrement())
-  status    String      @default("PENDING")
-  total     Float
-  items     OrderItem[]
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id            Int         @id @default(autoincrement())
+  status        String      @default("PENDING")
+  total         Float
+  customerName  String?
+  customerPhone String?
+  comment       String?
+  items         OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
 
 model OrderItem {
@@ -75,11 +82,20 @@ model OrderItem {
 }
 
 model Admin {
-  id        String   @id @default(cuid())
-  username  String   @unique
+  id        String    @id @default(cuid())
+  username  String    @unique
   password  String
+  sessions  Session[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  adminId   String
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model Settings {

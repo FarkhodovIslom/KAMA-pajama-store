@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { CreateProductSchema, formatZodErrors } from "@/lib/validations";
+import { verifySession } from "@/lib/auth";
 
 export async function GET(request: Request) {
   try {
@@ -27,38 +29,49 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const admin = await verifySession(request);
+  if (!admin) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
-    const { name, description, price, categoryId, images, variants } = body;
+    const result = CreateProductSchema.safeParse(body);
 
-    if (!name || !price || !categoryId) {
+    if (!result.success) {
       return NextResponse.json(
-        { error: "Name, price and categoryId are required" },
+        { error: "Validation failed", details: formatZodErrors(result.error) },
         { status: 400 }
       );
     }
 
+    const { name, slug, description, price, discountPrice, isActive, categoryId, images, variants } = result.data;
+
     const product = await prisma.product.create({
       data: {
         name,
+        slug,
         description,
         price,
+        discountPrice,
+        isActive,
         categoryId,
         images: images?.length
           ? {
-              create: images.map((img: { url: string; color?: string; isMain?: boolean }) => ({
+              create: images.map((img) => ({
                 url: img.url,
                 color: img.color,
-                isMain: img.isMain || false,
+                isMain: img.isMain,
+                sortOrder: img.sortOrder,
               })),
             }
           : undefined,
         variants: variants?.length
           ? {
-              create: variants.map((v: { color: string; size: string; inStock?: boolean }) => ({
+              create: variants.map((v) => ({
                 color: v.color,
                 size: v.size,
-                inStock: v.inStock ?? true,
+                inStock: v.inStock,
               })),
             }
           : undefined,

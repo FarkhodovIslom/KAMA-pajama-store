@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KAMA — Premium Sleepwear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════
+   MATERIAL 3 COLOR TOKENS — Seed: orange #C1410B
+   ════════════════════════════════════════════════ */
+:root {
+  --md-primary:                   #9D3A0E;
+  --md-on-primary:                #FFFFFF;
+  --md-primary-container:         #FFDBCE;
+  --md-on-primary-container:      #390D00;
+  --md-secondary:                 #77574E;
+  --md-on-secondary:              #FFFFFF;
+  --md-secondary-container:       #FFDBCE;
+  --md-on-secondary-container:    #2C160F;
+  --md-tertiary:                  #6D5E0F;
+  --md-on-tertiary:               #FFFFFF;
+  --md-tertiary-container:        #F8E287;
+  --md-on-tertiary-container:     #221B00;
+  --md-error:                     #BA1A1A;
+  --md-error-container:           #FFDAD6;
+  --md-on-error:                  #FFFFFF;
+  --md-surface:                   #FFF8F6;
+  --md-surface-dim:               #E8D6D1;
+  --md-surface-container-lowest:  #FFFFFF;
+  --md-surface-container-low:     #FFF1ED;
+  --md-surface-container:         #FCEAE5;
+  --md-surface-container-high:    #F6E4DF;
+  --md-surface-container-highest: #F0DED9;
+  --md-on-surface:                #221917;
+  --md-on-surface-variant:        #53433F;
+  --md-outline:                   #85716D;
+  --md-outline-variant:           #D8C2BC;
+  --md-inverse-surface:           #382E2B;
+  --md-inverse-on-surface:        #FFEEE9;
+  --md-inverse-primary:           #FFB59A;
+
+  --shape-xs:   4px;
+  --shape-sm:   8px;
+  --shape-md:   12px;
+  --shape-lg:   16px;
+  --shape-xl:   28px;
+  --shape-full: 100px;
+
+  --motion-std: 200ms cubic-bezier(0.2,0,0,1);
+  --motion-exp: 300ms cubic-bezier(0.2,0,0,1);
+  --motion-emp: 400ms cubic-bezier(0.05,0.7,0.1,1);
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  scroll-behavior: smooth;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--md-surface);color:var(--md-on-surface);min-height:100vh;font-size:15px;line-height:1.6;}
+::-webkit-scrollbar{width:8px;height:8px;}
+::-webkit-scrollbar-track{background:var(--md-surface-container-low);}
+::-webkit-scrollbar-thumb{background:var(--md-outline-variant);border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:var(--md-outline);}
+
+/* ════════════════════════════════════════════════
+   RESPONSIVE CONTAINER
+   ════════════════════════════════════════════════ */
+.container{
+  max-width:1400px;
+  margin:0 auto;
+  padding:0 24px;
+}
+@media(max-width:640px){
+  .container{padding:0 16px;}
+}
+
+/* ════════════════════════════════════════════════
+   RIPPLE EFFECT
+   ════════════════════════════════════════════════ */
+.rip{position:relative;overflow:hidden;cursor:pointer;}
+.ripple-wave{
+  position:absolute;border-radius:50%;background:currentColor;opacity:.12;
+  transform:scale(0);animation:rwAnim 550ms linear;pointer-events:none;
+}
+@keyframes rwAnim{to{transform:scale(4);opacity:0;}}
+
+/* ════════════════════════════════════════════════
+   NAVIGATION
+   ════════════════════════════════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(255,248,246,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--md-outline-variant);
+  transition:all var(--motion-std);
+}
+.nav.scrolled{background:rgba(255,248,246,.98);box-shadow:0 2px 20px rgba(0,0,0,.08);}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  height:72px;max-width:1400px;margin:0 auto;padding:0 24px;
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:700;letter-spacing:.08em;
+  color:var(--md-primary);text-decoration:none;
+}
+.nav-links{
+  display:flex;align-items:center;gap:32px;
+}
+.nav-link{
+  font-size:14px;font-weight:600;color:var(--md-on-surface-variant);
+  text-decoration:none;padding:8px 0;position:relative;
+  transition:color var(--motion-std);
+}
+.nav-link::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:2px;
+  background:var(--md-primary);transition:width var(--motion-emp);
+}
+.nav-link:hover{color:var(--md-on-surface);}
+.nav-link:hover::after,.nav-link.active::after{width:100%;}
+.nav-actions{display:flex;align-items:center;gap:8px;}
+
+/* Mobile menu */
+.nav-mobile-toggle{
+  display:none;width:48px;height:48px;border-radius:var(--shape-full);
+  border:none;background:transparent;cursor:pointer;
+  align-items:center;justify-content:center;
+}
+.nav-mobile-toggle svg{width:24px;height:24px;}
+
+@media(max-width:900px){
+  .nav-links,.nav-actions .desktop-only{display:none;}
+  .nav-mobile-toggle{display:flex;}
+  .nav-inner{height:64px;}
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(0,0,0,.5);opacity:0;visibility:hidden;
+  transition:all var(--motion-std);
+}
+.mobile-menu.open{opacity:1;visibility:visible;}
+.mobile-menu-panel{
+  position:absolute;top:0;right:0;bottom:0;
+  width:320px;max-width:85vw;
+  background:var(--md-surface);
+  transform:translateX(100%);transition:transform var(--motion-exp);
+  padding:24px;overflow-y:auto;
+}
+.mobile-menu.open .mobile-menu-panel{transform:translateX(0);}
+.mobile-menu-close{
+  width:40px;height:40px;border-radius:var(--shape-full);
+  border:none;background:var(--md-surface-container);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;
+}
+.mobile-menu-links{display:flex;flex-direction:column;gap:8px;}
+.mobile-menu-link{
+  display:flex;align-items:center;gap:12px;padding:14px 16px;
+  border-radius:var(--shape-lg);text-decoration:none;
+  color:var(--md-on-surface);font-size:16px;font-weight:500;
+  transition:background var(--motion-std);
+}
+.mobile-menu-link:hover{background:var(--md-surface-container);}
+.mobile-menu-link svg{width:22px;height:22px;color:var(--md-on-surface-variant);}
+
+/* ════════════════════════════════════════════════
+   BUTTONS
+   ════════════════════════════════════════════════ */
+.btn-filled{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:48px;padding:0 28px;border-radius:var(--shape-full);border:none;
+  background:var(--md-primary);color:var(--md-on-primary);
+  font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;
+  transition:all var(--motion-std);
+}
+.btn-filled:hover{box-shadow:0 4px 16px rgba(157,58,14,.4);transform:translateY(-1px);}
+.btn-filled:active{transform:translateY(0);}
+
+.btn-tonal{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:48px;padding:0 28px;border-radius:var(--shape-full);border:none;
+  background:var(--md-secondary-container);color:var(--md-on-secondary-container);
+  font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;
+  transition:all var(--motion-std);
+}
+.btn-tonal:hover{box-shadow:0 2px 8px rgba(0,0,0,.12);}
+
+.btn-outlined{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:48px;padding:0 28px;border-radius:var(--shape-full);
+  border:1px solid var(--md-outline);background:transparent;color:var(--md-primary);
+  font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;
+  transition:all var(--motion-std);
+}
+.btn-outlined:hover{background:rgba(157,58,14,.08);}
+
+/* Icon Button */
+.ibtn{
+  width:48px;height:48px;border-radius:var(--shape-full);border:none;
+  background:transparent;color:var(--md-on-surface-variant);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all var(--motion-std);
+}
+.ibtn:hover{background:rgba(34,25,23,.08);}
+.ibtn svg{width:24px;height:24px;}
+.ibtn.cart-dot{position:relative;}
+.ibtn.cart-dot::after{
+  content:'3';position:absolute;top:8px;right:8px;
+  min-width:18px;height:18px;padding:0 4px;
+  background:var(--md-error);color:#fff;
+  font-size:10px;font-weight:800;border-radius:var(--shape-full);
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ════════════════════════════════════════════════
+   HERO SECTION
+   ════════════════════════════════════════════════ */
+.hero{
+  min-height:90vh;padding-top:72px;
+  display:flex;align-items:center;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(135deg,var(--md-primary-container) 0%,#FFD0B8 50%,#FFF5EE 100%);
+}
+.hero-bg::before{
+  content:'';position:absolute;right:-10%;top:-20%;
+  width:60vw;height:60vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(157,58,14,.08) 0%,transparent 70%);
+  animation:heroFloat 20s ease-in-out infinite;
+}
+.hero-bg::after{
+  content:'';position:absolute;left:-5%;bottom:-10%;
+  width:40vw;height:40vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(157,58,14,.05) 0%,transparent 70%);
+  animation:heroFloat 25s ease-in-out infinite reverse;
+}
+@keyframes heroFloat{0%,100%{transform:translate(0,0);}50%{transform:translate(30px,20px);}}
+
+.hero-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  max-width:1400px;margin:0 auto;padding:80px 24px;
+}
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:40px;padding:40px 24px 60px;}
+  .hero-content{order:2;}
+  .hero-visual{order:1;}
+}
+
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(157,58,14,.14);color:var(--md-primary);
+  font-size:12px;font-weight:700;letter-spacing:.1em;padding:8px 16px;
+  border-radius:var(--shape-full);margin-bottom:24px;text-transform:uppercase;
+  animation:fadeInUp .6s both;
+}
+.hero-h{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(40px,6vw,72px);font-weight:700;
+  color:var(--md-on-primary-container);line-height:1.1;
+  margin-bottom:20px;animation:fadeInUp .6s .1s both;
+}
+.hero-p{
+  font-size:18px;color:var(--md-on-surface-variant);
+  margin-bottom:32px;max-width:480px;
+  animation:fadeInUp .6s .2s both;
+}
+@media(max-width:900px){
+  .hero-p{margin:0 auto 32px;}
+}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;animation:fadeInUp .6s .3s both;}
+@media(max-width:900px){.hero-btns{justify-content:center;}}
+
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.hero-visual{
+  position:relative;animation:fadeInUp .8s .2s both;
+}
+.hero-img{
+  width:100%;aspect-ratio:3/4;border-radius:var(--shape-xl);
+  background:linear-gradient(160deg,#FFF 0%,var(--md-primary-container) 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:120px;box-shadow:0 24px 60px rgba(157,58,14,.2);
+  position:relative;overflow:hidden;
+}
+.hero-img::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.4) 50%,transparent 60%);
+  transform:translateX(-100%);transition:transform .8s;
+}
+.hero-img:hover::before{transform:translateX(100%);}
+
+/* ════════════════════════════════════════════════
+   CATEGORIES SECTION
+   ════════════════════════════════════════════════ */
+.section{padding:80px 0;}
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:40px;
+}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:600;color:var(--md-on-surface);
+}
+.section-subtitle{
+  font-size:15px;color:var(--md-on-surface-variant);margin-top:8px;
+}
+
+.cat-grid{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:20px;
+}
+@media(max-width:1100px){.cat-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:640px){.cat-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
+
+.cat-card{
+  background:var(--md-surface-container);border-radius:var(--shape-xl);
+  padding:24px 16px;display:flex;flex-direction:column;align-items:center;
+  gap:12px;cursor:pointer;transition:all var(--motion-std);
+  position:relative;overflow:hidden;
+}
+.cat-card:hover{background:var(--md-surface-container-high);transform:translateY(-4px);}
+.cat-card.wide{grid-column:span 2;flex-direction:row;gap:20px;padding:20px 24px;background:var(--md-primary-container);}
+@media(max-width:640px){
+  .cat-card.wide{grid-column:span 2;flex-direction:column;text-align:center;}
+}
+.cat-ico{
+  width:56px;height:56px;border-radius:var(--shape-md);
+  background:var(--md-surface-container-low);
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  flex-shrink:0;transition:transform var(--motion-std);
+}
+.cat-card:hover .cat-ico{transform:scale(1.1) rotate(5deg);}
+.cat-card.wide .cat-ico{background:rgba(157,58,14,.15);width:64px;height:64px;font-size:30px;}
+.cat-info{flex:1;}
+.cat-name{font-size:14px;font-weight:600;text-align:center;color:var(--md-on-surface);}
+.cat-count{font-size:12px;color:var(--md-on-surface-variant);text-align:center;}
+.cat-card.wide .cat-name{text-align:left;font-size:16px;color:var(--md-on-primary-container);}
+.cat-card.wide .cat-count{text-align:left;color:var(--md-on-primary-container);opacity:.7;}
+.promo-badge{
+  background:var(--md-primary);color:var(--md-on-primary);
+  font-size:18px;font-weight:800;padding:8px 16px;
+  border-radius:var(--shape-md);white-space:nowrap;
+}
+
+/* ════════════════════════════════════════════════
+   PRODUCTS GRID
+   ════════════════════════════════════════════════ */
+.products-section{background:var(--md-surface-container-low);}
+
+.filter-bar{
+  display:flex;align-items:center;gap:12px;margin-bottom:32px;
+  flex-wrap:wrap;
+}
+.filter-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  height:40px;padding:0 20px;border-radius:var(--shape-full);
+  border:1px solid var(--md-outline);background:var(--md-surface);
+  color:var(--md-on-surface-variant);
+  font-family:inherit;font-size:14px;font-weight:500;
+  cursor:pointer;white-space:nowrap;
+  transition:all var(--motion-std);
+}
+.filter-chip.on{background:var(--md-secondary-container);border-color:transparent;color:var(--md-on-secondary-container);}
+.filter-chip:hover{background:var(--md-surface-container-high);}
+
+.product-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+}
+@media(max-width:1100px){.product-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:800px){.product-grid{grid-template-columns:repeat(2,1fr);gap:16px;}}
+@media(max-width:480px){.product-grid{grid-template-columns:1fr;}}
+
+.product-card{
+  background:var(--md-surface);border-radius:var(--shape-xl);overflow:hidden;
+  cursor:pointer;transition:all var(--motion-std);
+  position:relative;
+}
+.product-card:hover{box-shadow:0 12px 32px rgba(0,0,0,.12);transform:translateY(-4px);}
+.product-image{
+  width:100%;aspect-ratio:3/4;
+  background:var(--md-surface-container);
+  display:flex;align-items:center;justify-content:center;
+  font-size:64px;position:relative;overflow:hidden;
+}
+.product-image.square{aspect-ratio:1/1;}
+.product-badge{
+  position:absolute;top:12px;left:12px;
+  background:var(--md-primary);color:var(--md-on-primary);
+  font-size:11px;font-weight:700;padding:4px 10px;
+  border-radius:var(--shape-full);text-transform:uppercase;
+}
+.product-badge.sale{background:var(--md-error);}
+.product-badge.new{background:#386A20;}
+.product-badge.hit{background:var(--md-tertiary);color:var(--md-on-tertiary);}
+.product-fav{
+  position:absolute;top:12px;right:12px;
+  width:40px;height:40px;border-radius:var(--shape-full);
+  background:var(--md-surface-container-lowest);
+  border:none;cursor:pointer;font-size:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  transition:all var(--motion-std);
+  opacity:0;transform:translateY(-8px);
+}
+.product-card:hover .product-fav{opacity:1;transform:translateY(0);}
+.product-fav.active{color:var(--md-error);opacity:1;transform:translateY(0);}
+.product-fav.active::after{content:'♥';}
+.product-fav:not(.active)::after{content:'♡';}
+
+.product-info{padding:16px;}
+.product-name{font-size:15px;font-weight:600;margin-bottom:4px;line-height:1.4;}
+.product-meta{font-size:13px;color:var(--md-on-surface-variant);margin-bottom:12px;}
+.product-price{display:flex;align-items:center;justify-content:space-between;}
+.price-current{font-size:18px;font-weight:700;color:var(--md-primary);}
+.price-old{font-size:13px;color:var(--md-on-surface-variant);text-decoration:line-through;margin-left:6px;}
+.product-add{
+  width:36px;height:36px;border-radius:var(--shape-md);
+  background:var(--md-primary);color:var(--md-on-primary);
+  border:none;cursor:pointer;font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--motion-std);flex-shrink:0;
+}
+.product-add:hover{box-shadow:0 4px 12px rgba(157,58,14,.4);transform:scale(1.1);}
+
+/* ════════════════════════════════════════════════
+   FEATURES SECTION
+   ════════════════════════════════════════════════ */
+.features{padding:100px 0;background:var(--md-surface);}
+.features-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:32px;
+}
+@media(max-width:900px){.features-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.features-grid{grid-template-columns:1fr;}}
+
+.feature-card{
+  text-align:center;padding:32px 24px;
+}
+.feature-icon{
+  width:72px;height:72px;border-radius:var(--shape-xl);
+  background:var(--md-primary-container);
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;margin:0 auto 20px;
+}
+.feature-title{font-size:18px;font-weight:700;margin-bottom:8px;}
+.feature-desc{font-size:14px;color:var(--md-on-surface-variant);}
+
+/* ════════════════════════════════════════════════
+   NEWSLETTER
+   ════════════════════════════════════════════════ */
+.newsletter{
+  padding:80px 0;
+  background:linear-gradient(135deg,var(--md-primary) 0%,#B8470F 100%);
+  position:relative;overflow:hidden;
+}
+.newsletter::before{
+  content:'';position:absolute;top:-50%;right:-20%;
+  width:60vw;height:60vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 70%);
+}
+.newsletter-inner{
+  max-width:560px;margin:0 auto;text-align:center;position:relative;z-index:1;
+}
+.newsletter-title{
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:600;color:#fff;margin-bottom:12px;
+}
+.newsletter-desc{
+  font-size:16px;color:rgba(255,255,255,.8);margin-bottom:28px;
+}
+.newsletter-form{
+  display:flex;gap:12px;
+}
+@media(max-width:500px){.newsletter-form{flex-direction:column;}}
+.newsletter-input{
+  flex:1;height:56px;padding:0 24px;border-radius:var(--shape-full);
+  border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);
+  color:#fff;font-family:inherit;font-size:16px;
+  transition:all var(--motion-std);
+}
+.newsletter-input::placeholder{color:rgba(255,255,255,.6);}
+.newsletter-input:focus{outline:none;border-color:#fff;background:rgba(255,255,255,.15);}
+.newsletter .btn-filled{background:#fff;color:var(--md-primary);}
+
+/* ════════════════════════════════════════════════
+   FOOTER
+   ════════════════════════════════════════════════ */
+.footer{background:var(--md-inverse-surface);color:var(--md-inverse-on-surface);padding:64px 0 32px;}
+.footer-grid{
+  display:grid;grid-template-columns:2fr repeat(3,1fr);gap:48px;
+  margin-bottom:48px;
+}
+@media(max-width:800px){.footer-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:500px){.footer-grid{grid-template-columns:1fr;}}
+
+.footer-brand{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--md-inverse-primary);margin-bottom:16px;}
+.footer-desc{font-size:14px;opacity:.7;line-height:1.7;max-width:280px;}
+.footer-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px;opacity:.5;}
+.footer-links{display:flex;flex-direction:column;gap:12px;}
+.footer-link{color:var(--md-inverse-on-surface);text-decoration:none;opacity:.7;transition:opacity var(--motion-std);}
+.footer-link:hover{opacity:1;}
+.footer-bottom{
+  padding-top:32px;border-top:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-copy{font-size:13px;opacity:.5;}
+.footer-social{display:flex;gap:12px;}
+.social-btn{
+  width:40px;height:40px;border-radius:var(--shape-full);
+  background:rgba(255,255,255,.1);border:none;
+  color:var(--md-inverse-on-surface);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background var(--motion-std);
+}
+.social-btn:hover{background:rgba(255,255,255,.2);}
+.social-btn svg{width:18px;height:18px;}
+
+/* ════════════════════════════════════════════════
+   CART SIDEBAR (Desktop)
+   ════════════════════════════════════════════════ */
+.cart-overlay{
+  position:fixed;inset:0;z-index:1100;
+  background:rgba(0,0,0,.5);opacity:0;visibility:hidden;
+  transition:all var(--motion-std);
+}
+.cart-overlay.open{opacity:1;visibility:visible;}
+.cart-sidebar{
+  position:absolute;top:0;right:0;bottom:0;
+  width:420px;max-width:100%;
+  background:var(--md-surface);
+  transform:translateX(100%);transition:transform var(--motion-exp);
+  display:flex;flex-direction:column;
+}
+.cart-overlay.open .cart-sidebar{transform:translateX(0);}
+.cart-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px;border-bottom:1px solid var(--md-outline-variant);
+}
+.cart-title{font-size:20px;font-weight:700;}
+.cart-close{
+  width:40px;height:40px;border-radius:var(--shape-full);
+  border:none;background:var(--md-surface-container);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.cart-items{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;}
+.cart-item{
+  display:flex;gap:16px;padding:16px;
+  background:var(--md-surface-container-low);border-radius:var(--shape-xl);
+}
+.cart-item-img{
+  width:80px;height:90px;border-radius:var(--shape-lg);
+  background:var(--md-surface-container);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:32px;
+}
+.cart-item-body{flex:1;display:flex;flex-direction:column;}
+.cart-item-name{font-size:15px;font-weight:600;margin-bottom:4px;}
+.cart-item-meta{font-size:13px;color:var(--md-on-surface-variant);}
+.cart-item-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:auto;
+}
+.cart-item-qty{display:flex;align-items:center;background:var(--md-surface-container);border-radius:var(--shape-full);overflow:hidden;}
+.cart-qty-btn{width:32px;height:32px;border:none;background:none;cursor:pointer;font-size:16px;}
+.cart-qty-num{width:28px;text-align:center;font-weight:600;}
+.cart-item-price{font-size:16px;font-weight:700;color:var(--md-primary);}
+
+.cart-footer{padding:24px;border-top:1px solid var(--md-outline-variant);}
+.cart-subtotal{display:flex;justify-content:space-between;margin-bottom:16px;}
+.cart-subtotal-label{font-size:15px;color:var(--md-on-surface-variant);}
+.cart-subtotal-value{font-size:20px;font-weight:700;}
+.cart-checkout{width:100%;}
+
+/* ════════════════════════════════════════════════
+   PAGE SECTIONS
+   ════════════════════════════════════════════════ */
+.page-section{display:none;}
+.page-section.active{display:block;}
+
+/* Product Detail Page */
+.product-detail{padding-top:72px;}
+.detail-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  max-width:1200px;margin:0 auto;padding:40px 24px;
+}
+@media(max-width:900px){.detail-grid{grid-template-columns:1fr;gap:32px;}}
+
+.detail-gallery{position:sticky;top:100px;height:fit-content;}
+.detail-main-img{
+  width:100%;aspect-ratio:3/4;border-radius:var(--shape-xl);
+  background:linear-gradient(160deg,#FAE8DC,#FFD5BE);
+  display:flex;align-items:center;justify-content:center;font-size:140px;
+  position:relative;overflow:hidden;
+}
+.detail-thumbnails{
+  display:flex;gap:12px;margin-top:16px;
+}
+.detail-thumb{
+  width:80px;height:100px;border-radius:var(--shape-lg);
+  background:var(--md-surface-container);border:2px solid transparent;
+  display:flex;align-items:center;justify-content:center;font-size:28px;
+  cursor:pointer;transition:all var(--motion-std);
+}
+.detail-thumb:hover,.detail-thumb.active{border-color:var(--md-primary);}
+
+.detail-info{}
+.detail-bread{font-size:13px;color:var(--md-on-surface-variant);margin-bottom:16px;}
+.detail-tags{display:flex;gap:8px;margin-bottom:16px;}
+.detail-tag{
+  background:var(--md-tertiary-container);color:var(--md-on-tertiary-container);
+  font-size:11px;font-weight:700;letter-spacing:.04em;padding:6px 12px;
+  border-radius:var(--shape-full);text-transform:uppercase;
+}
+.detail-name{
+  font-family:'Playfair Display',serif;
+  font-size:36px;font-weight:700;line-height:1.2;margin-bottom:16px;
+}
+.detail-rating{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.detail-stars{display:flex;gap:2px;}
+.detail-stars span{font-size:18px;color:var(--md-tertiary);}
+.detail-rating-text{font-size:14px;color:var(--md-on-surface-variant);}
+.detail-price{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+.detail-price-current{font-size:32px;font-weight:800;color:var(--md-primary);}
+.detail-price-old{font-size:18px;color:var(--md-on-surface-variant);text-decoration:line-through;}
+.detail-price-save{background:var(--md-error-container);color:var(--md-error);font-size:12px;font-weight:700;padding:4px 10px;border-radius:var(--shape-full);}
+.detail-desc{font-size:15px;color:var(--md-on-surface-variant);line-height:1.7;margin-bottom:32px;}
+
+.detail-options{margin-bottom:32px;}
+.detail-option-label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--md-on-surface-variant);margin-bottom:12px;}
+.detail-colors{display:flex;gap:12px;margin-bottom:24px;}
+.detail-color{
+  width:44px;height:44px;border-radius:var(--shape-full);cursor:pointer;
+  transition:transform var(--motion-std);position:relative;
+}
+.detail-color:hover{transform:scale(1.15);}
+.detail-color.active::after{
+  content:'✓';position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:16px;font-weight:800;text-shadow:0 1px 3px rgba(0,0,0,.4);
+}
+.detail-sizes{display:flex;gap:10px;flex-wrap:wrap;}
+.detail-size{
+  min-width:52px;height:52px;padding:0 18px;border-radius:var(--shape-full);
+  border:1px solid var(--md-outline);background:var(--md-surface);
+  color:var(--md-on-surface);font-family:inherit;font-size:15px;font-weight:600;
+  cursor:pointer;transition:all var(--motion-std);
+}
+.detail-size:hover{background:var(--md-surface-container-high);}
+.detail-size.active{background:var(--md-secondary-container);border-color:transparent;color:var(--md-on-secondary-container);}
+
+.detail-actions{display:flex;gap:16px;align-items:center;}
+.detail-qty{display:flex;align-items:center;background:var(--md-surface-container);border-radius:var(--shape-full);overflow:hidden;}
+.detail-qty-btn{width:52px;height:52px;border:none;background:none;cursor:pointer;font-size:20px;}
+.detail-qty-num{width:48px;text-align:center;font-size:18px;font-weight:700;}
+.detail-add-btn{flex:1;height:56px;font-size:16px;}
+
+/* Related Products */
+.related{padding:80px 0;background:var(--md-surface-container-low);}
+
+/* ════════════════════════════════════════════════
+   UTILITIES
+   ════════════════════════════════════════════════ */
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+.text-center{text-align:center;}
+.mt-8{margin-top:32px;}
+.mb-8{margin-bottom:32px;}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showPage('home')">KAMA</a>
+    <div class="nav-links">
+      <a href="#" class="nav-link active" onclick="showPage('home')">Главная</a>
+      <a href="#catalog" class="nav-link" onclick="showPage('catalog')">Каталог</a>
+      <a href="#" class="nav-link">О бренде</a>
+      <a href="#" class="nav-link">Контакты</a>
+    </div>
+    <div class="nav-actions">
+      <button class="ibtn desktop-only" aria-label="Поиск">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="ibtn desktop-only" aria-label="Избранное">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <button class="ibtn cart-dot" aria-label="Корзина" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+      </button>
+      <button class="nav-mobile-toggle" onclick="toggleMobileMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-panel">
+    <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="mobile-menu-links">
+      <a href="#" class="mobile-menu-link" onclick="showPage('home');toggleMobileMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Главная
+      </a>
+      <a href="#catalog" class="mobile-menu-link" onclick="showPage('catalog');toggleMobileMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Каталог
+      </a>
+      <a href="#" class="mobile-menu-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Избранное
+      </a>
+      <a href="#" class="mobile-menu-link" onclick="toggleCart();toggleMobileMenu()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+        Корзина
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()">
+  <div class="cart-sidebar" onclick="event.stopPropagation()">
+    <div class="cart-header">
+      <h2 class="cart-title">Корзина (3)</h2>
+      <button class="cart-close" onclick="toggleCart()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="cart-items">
+      <div class="cart-item">
+        <div class="cart-item-img" style="background:#F0E8E0;">🛍️</div>
+        <div class="cart-item-body">
+          <div class="cart-item-name">Classic Cotton PJ Set</div>
+          <div class="cart-item-meta">Размер: M · Синий</div>
+          <div class="cart-item-bottom">
+            <div class="cart-item-qty">
+              <button class="cart-qty-btn">−</button>
+              <span class="cart-qty-num">1</span>
+              <button class="cart-qty-btn">+</button>
+            </div>
+            <div class="cart-item-price">$48.00</div>
+          </div>
+        </div>
+      </div>
+      <div class="cart-item">
+        <div class="cart-item-img" style="background:#EAE8F5;">🌙</div>
+        <div class="cart-item-body">
+          <div class="cart-item-name">Satin Robe</div>
+          <div class="cart-item-meta">Размер: S · Серый</div>
+          <div class="cart-item-bottom">
+            <div class="cart-item-qty">
+              <button class="cart-qty-btn">−</button>
+              <span class="cart-qty-num">1</span>
+              <button class="cart-qty-btn">+</button>
+            </div>
+            <div class="cart-item-price">$56.00</div>
+          </div>
+        </div>
+      </div>
+      <div class="cart-item">
+        <div class="cart-item-img" style="background:#EDF5EC;">🩱</div>
+        <div class="cart-item-body">
+          <div class="cart-item-name">Cozy Fleece Bottoms</div>
+          <div class="cart-item-meta">Размер: M · Бежевый</div>
+          <div class="cart-item-bottom">
+            <div class="cart-item-qty">
+              <button class="cart-qty-btn">−</button>
+              <span class="cart-qty-num">1</span>
+              <button class="cart-qty-btn">+</button>
+            </div>
+            <div class="cart-item-price">$30.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span class="cart-subtotal-label">Итого</span>
+        <span class="cart-subtotal-value">$134.00</span>
+      </div>
+      <button class="btn-filled cart-checkout">Оформить заказ</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+<div class="page-section active" id="page-home">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-pill">✦ Новая коллекция</div>
+        <h1 class="hero-h">Мягче,<br>чем облака</h1>
+        <p class="hero-p">Шёлк, хлопок и забота о вашем сне. Премиальная домашняя одежда для настоящего комфорта.</p>
+        <div class="hero-btns">
+          <button class="btn-filled" onclick="showPage('catalog')">Смотреть каталог</button>
+          <button class="btn-tonal">Новинки</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img">🛏️</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section container" id="catalog-section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Категории</h2>
+        <p class="section-subtitle">Найдите идеальную пижаму для себя</p>
+      </div>
+      <button class="btn-outlined desktop-only" onclick="showPage('catalog')">Все категории</button>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card rip" onclick="showPage('catalog')">
+        <div class="cat-ico">👗</div>
+        <div class="cat-name">Женские пижамы</div>
+        <div class="cat-count">42 шт</div>
+      </div>
+      <div class="cat-card rip" onclick="showPage('catalog')">
+        <div class="cat-ico">👔</div>
+        <div class="cat-name">Мужские пижамы</div>
+        <div class="cat-count">28 шт</div>
+      </div>
+      <div class="cat-card rip" onclick="showPage('catalog')">
+        <div class="cat-ico">🧸</div>
+        <div class="cat-name">Детские</div>
+        <div class="cat-count">35 шт</div>
+      </div>
+      <div class="cat-card rip" onclick="showPage('catalog')">
+        <div class="cat-ico">💍</div>
+        <div class="cat-name">Аксессуары</div>
+        <div class="cat-count">19 шт</div>
+      </div>
+      <div class="cat-card rip" onclick="showPage('catalog')">
+        <div class="cat-ico">🥿</div>
+        <div class="cat-name">Домашняя обувь</div>
+        <div class="cat-count">14 шт</div>
+      </div>
+      <div class="cat-card rip" onclick="showPage('catalog')">
+        <div class="cat-ico">🎁</div>
+        <div class="cat-name">Подарочные сеты</div>
+        <div class="cat-count">8 шт</div>
+      </div>
+      <div class="cat-card wide rip" onclick="showPage('catalog')">
+        <div class="cat-ico">🏷️</div>
+        <div class="cat-info">
+          <div class="cat-name">Распродажа — только сегодня</div>
+          <div class="cat-count">Скидки до 30% на весь ассортимент</div>
+        </div>
+        <div class="promo-badge">−30%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Products -->
+  <section class="section products-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Популярное</h2>
+          <p class="section-subtitle">Бестселлеры этого месяца</p>
+        </div>
+        <button class="btn-outlined desktop-only" onclick="showPage('catalog')">Все товары →</button>
+      </div>
+      <div class="product-grid">
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#FAE8DC;">
+            <span>🛍️</span>
+            <div class="product-badge">−15%</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Silk Pajama Set</div>
+            <div class="product-meta">Шёлк · S–XL</div>
+            <div class="product-price">
+              <div><span class="price-current">$45</span><span class="price-old">$53</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#E8EDF5;">
+            <span>🌙</span>
+            <div class="product-badge new">NEW</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Midnight Robe</div>
+            <div class="product-meta">Бархат · S–XXL</div>
+            <div class="product-price">
+              <div><span class="price-current">$38</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#EDF5EC;">
+            <span>🩱</span>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Cozy Shorts</div>
+            <div class="product-meta">Хлопок · Унисекс</div>
+            <div class="product-price">
+              <div><span class="price-current">$28</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#F5EEEA;">
+            <span>🌸</span>
+            <div class="product-badge hit">ХИТ</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Floral Sleep Shirt</div>
+            <div class="product-meta">Хлопок · S–XL</div>
+            <div class="product-price">
+              <div><span class="price-current">$30</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🚚</div>
+          <h3 class="feature-title">Бесплатная доставка</h3>
+          <p class="feature-desc">При заказе от 5000 ₽ доставим бесплатно</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">↩️</div>
+          <h3 class="feature-title">Возврат 30 дней</h3>
+          <p class="feature-desc">Без вопросов вернём деньги</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌿</div>
+          <h3 class="feature-title">Натуральные ткани</h3>
+          <p class="feature-desc">100% органический хлопок и шёлк</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎁</div>
+          <h3 class="feature-title">Подарочная упаковка</h3>
+          <p class="feature-desc">Каждый заказ — в красивой коробке</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-inner">
+        <h2 class="newsletter-title">Не пропускайте скидки</h2>
+        <p class="newsletter-desc">Подпишитесь на рассылку и получайте первыми информацию о новинках и акциях</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Спасибо за подписку!');">
+          <input type="email" class="newsletter-input" placeholder="Ваш email" required>
+          <button type="submit" class="btn-filled">Подписаться</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CATALOG PAGE -->
+<div class="page-section" id="page-catalog">
+  <section class="section products-section" style="padding-top:120px;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">Каталог</h1>
+          <p class="section-subtitle">42 товара</p>
+        </div>
+      </div>
+      
+      <div class="filter-bar">
+        <button class="filter-chip on">Все</button>
+        <button class="filter-chip">Шёлк</button>
+        <button class="filter-chip">Хлопок</button>
+        <button class="filter-chip">Новинки</button>
+        <button class="filter-chip">Скидки</button>
+        <button class="filter-chip">Комплекты</button>
+      </div>
+
+      <div class="product-grid">
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#FAE8DC;">
+            <span>🛍️</span>
+            <div class="product-badge">−15%</div>
+            <button class="product-fav active"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Scarlet Silk Set</div>
+            <div class="product-meta">Шёлк · S–XL</div>
+            <div class="product-price">
+              <div><span class="price-current">$64</span><span class="price-old">$75</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#E8EDF5;">
+            <span>🩱</span>
+            <div class="product-badge new">NEW</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Cozy Cotton Shorts</div>
+            <div class="product-meta">Хлопок · Унисекс</div>
+            <div class="product-price">
+              <div><span class="price-current">$28</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#EAE8F5;">
+            <span>🌙</span>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Midnight Robe</div>
+            <div class="product-meta">Бархат · S–XXL</div>
+            <div class="product-price">
+              <div><span class="price-current">$38</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#F5F0E8;">
+            <span>🧺</span>
+            <div class="product-badge hit">ХИТ</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Lace Trim Cami</div>
+            <div class="product-meta">Вискоза · XS–L</div>
+            <div class="product-price">
+              <div><span class="price-current">$32</span><span class="price-old">$40</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#EDF5EC;">
+            <span>🧵</span>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Satin Lounge Pants</div>
+            <div class="product-meta">Сатин · S–XL</div>
+            <div class="product-price">
+              <div><span class="price-current">$34</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#F5EEEA;">
+            <span>🌸</span>
+            <div class="product-badge">−10%</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Floral Sleep Shirt</div>
+            <div class="product-meta">Хлопок · S–XL</div>
+            <div class="product-price">
+              <div><span class="price-current">$30</span><span class="price-old">$33</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#E8F5F0;">
+            <span>🦋</span>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Butterfly Kaftan</div>
+            <div class="product-meta">Лён · XS–XL</div>
+            <div class="product-price">
+              <div><span class="price-current">$42</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#F0E8F5;">
+            <span>🏄</span>
+            <div class="product-badge new">NEW</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Wave Pattern Set</div>
+            <div class="product-meta">Модал · S–XXL</div>
+            <div class="product-price">
+              <div><span class="price-current">$36</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PRODUCT DETAIL PAGE -->
+<div class="page-section" id="page-detail">
+  <section class="product-detail">
+    <div class="detail-grid">
+      <div class="detail-gallery">
+        <div class="detail-main-img" id="mainDetailImage">🛍️</div>
+        <div class="detail-thumbnails">
+          <div class="detail-thumb active" onclick="updateMainImage(this, '🛍️')">🛍️</div>
+          <div class="detail-thumb" onclick="updateMainImage(this, '👗')">👗</div>
+          <div class="detail-thumb" onclick="updateMainImage(this, '🌙')">🌙</div>
+          <div class="detail-thumb" onclick="updateMainImage(this, '📐')">📐</div>
+        </div>
+      </div>
+      <div class="detail-info">
+        <div class="detail-bread">Главная / Каталог / Женские пижамы / Silk Pajama Set</div>
+        <div class="detail-tags">
+          <span class="detail-tag">100% Шёлк</span>
+          <span class="detail-tag">Эксклюзив</span>
+        </div>
+        <h1 class="detail-name">CloudSoft Silk Pajama Set</h1>
+        <div class="detail-rating">
+          <div class="detail-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <span>4.8</span>
+          <span class="detail-rating-text">(124 отзыва)</span>
+        </div>
+        <div class="detail-price">
+          <span class="detail-price-current">$45.00</span>
+          <span class="detail-price-old">$62.00</span>
+          <span class="detail-price-save">−27%</span>
+        </div>
+        <p class="detail-desc">Невероятно мягкая пижама из 100% натурального шёлка премиум-класса. Идеальная терморегуляция для комфортного сна в любое время года. Безупречная посадка и изысканный дизайн для настоящего отдыха.</p>
+        
+        <div class="detail-options">
+          <div class="detail-option-label">Цвет</div>
+          <div class="detail-colors">
+            <div class="detail-color active" style="background:#E8552C;" onclick="selectColor(this)"></div>
+            <div class="detail-color" style="background:#2C3E8C;" onclick="selectColor(this)"></div>
+            <div class="detail-color" style="background:#3D3D3D;" onclick="selectColor(this)"></div>
+            <div class="detail-color" style="background:#C8A882;" onclick="selectColor(this)"></div>
+            <div class="detail-color" style="background:#8B5CF6;" onclick="selectColor(this)"></div>
+          </div>
+          
+          <div class="detail-option-label">Размер</div>
+          <div class="detail-sizes">
+            <button class="detail-size" onclick="selectSize(this)">XS</button>
+            <button class="detail-size active" onclick="selectSize(this)">S</button>
+            <button class="detail-size" onclick="selectSize(this)">M</button>
+            <button class="detail-size" onclick="selectSize(this)">L</button>
+            <button class="detail-size" onclick="selectSize(this)">XL</button>
+            <button class="detail-size" onclick="selectSize(this)">XXL</button>
+          </div>
+        </div>
+        
+        <div class="detail-actions">
+          <div class="detail-qty">
+            <button class="detail-qty-btn" onclick="updateQty(-1)">−</button>
+            <span class="detail-qty-num" id="detailQty">1</span>
+            <button class="detail-qty-btn" onclick="updateQty(1)">+</button>
+          </div>
+          <button class="btn-filled detail-add-btn" onclick="toggleCart()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+            <span>В корзину · $45.00</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="related">
+    <div class="container">
+      <h2 class="section-title mb-8">Вам также может понравиться</h2>
+      <div class="product-grid">
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#E8EDF5;">
+            <span>🌙</span>
+            <div class="product-badge new">NEW</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Midnight Robe</div>
+            <div class="product-meta">Бархат · S–XXL</div>
+            <div class="product-price">
+              <div><span class="price-current">$38</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#F5EEEA;">
+            <span>🌸</span>
+            <div class="product-badge hit">ХИТ</div>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Floral Sleep Shirt</div>
+            <div class="product-meta">Хлопок · S–XL</div>
+            <div class="product-price">
+              <div><span class="price-current">$30</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#EDF5EC;">
+            <span>🩱</span>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Cozy Shorts</div>
+            <div class="product-meta">Хлопок · Унисекс</div>
+            <div class="product-price">
+              <div><span class="price-current">$28</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="product-card" onclick="showPage('detail')">
+          <div class="product-image" style="background:#EAE8F5;">
+            <span>🧵</span>
+            <button class="product-fav"></button>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Satin Lounge Pants</div>
+            <div class="product-meta">Сатин · S–XL</div>
+            <div class="product-price">
+              <div><span class="price-current">$34</span></div>
+              <button class="product-add">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">KAMA</div>
+        <p class="footer-desc">Премиальная домашняя одежда для комфортного сна и уюта. Шёлк, хлопок и забота о вашем комфорте с 2018 года.</p>
+      </div>
+      <div>
+        <div class="footer-title">Покупателям</div>
+        <div class="footer-links">
+          <a href="#" class="footer-link" onclick="showPage('catalog')">Каталог</a>
+          <a href="#" class="footer-link">Акции</a>
+          <a href="#" class="footer-link">Доставка и оплата</a>
+          <a href="#" class="footer-link">Возврат</a>
+          <a href="#" class="footer-link">Таблица размеров</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-title">О компании</div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">О бренде</a>
+          <a href="#" class="footer-link">Блог</a>
+          <a href="#" class="footer-link">Контакты</a>
+          <a href="#" class="footer-link">Сотрудничество</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-title">Связь с нами</div>
+        <div class="footer-links">
+          <a href="tel:+78000000000" class="footer-link">+7 (800) 000-00-00</a>
+          <a href="mailto:hello@kamasleep.com" class="footer-link">hello@kamasleep.com</a>
+          <p class="footer-desc" style="margin-top:8px">Ежедневно с 10:00 до 22:00</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2024 KAMA Sleepwear. Все права защищены.</div>
+      <div class="footer-social">
+        <button class="social-btn" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2L2 10.5l6.5 2.5 10-7.5-8.5 8.5 8.5 4z"/></svg>
+        </button>
+        <button class="social-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </button>
+        <button class="social-btn" aria-label="VK">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 21v-8a2 2 0 0 1 2-2h4"/><path d="M22 10c0-4.4-3.6-8-8-8s-8 3.6-8 8 3.6 8 8 8 8-3.6 8-8z"/><path d="M2 22l4-4"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Навигация между страницами
+  function showPage(pageId) {
+    document.querySelectorAll('.page-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    document.getElementById('page-' + pageId).classList.add('active');
+    
+    // Обновляем активные ссылки в меню
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(pageId)) {
+        link.classList.add('active');
+      }
+    });
+
+    // Скролл наверх
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Управление корзиной
+  function toggleCart() {
+    document.getElementById('cartOverlay').classList.toggle('open');
+  }
+
+  // Мобильное меню
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Эффект при скролле (липкая шапка)
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 20) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+
+  // Переключение кнопок фильтров в каталоге
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('on'));
+      chip.classList.add('on');
+    });
+  });
+
+  // Добавление в избранное с предотвращением клика по самой карточке
+  document.querySelectorAll('.product-fav').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      btn.classList.toggle('active');
+    });
+  });
+
+  // Эффект "Ripple" (Волна при клике)
+  document.querySelectorAll('.rip').forEach(el => {
+    el.addEventListener('click', function(e) {
+      const x = e.clientX - e.target.offsetLeft;
+      const y = e.clientY - e.target.offsetTop;
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple-wave');
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      ripple.style.width = ripple.style.height = `${Math.max(el.clientWidth, el.clientHeight)}px`;
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+
+  // Функции для страницы продукта
+  function selectColor(element) {
+    document.querySelectorAll('.detail-color').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+  }
+
+  function selectSize(element) {
+    document.querySelectorAll('.detail-size').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+  }
+
+  function updateQty(change) {
+    const qtyElement = document.getElementById('detailQty');
+    let currentQty = parseInt(qtyElement.innerText);
+    currentQty += change;
+    if (currentQty < 1) currentQty = 1;
+    if (currentQty > 10) currentQty = 10;
+    qtyElement.innerText = currentQty;
+  }
+
+  function updateMainImage(element, emoji) {
+    document.querySelectorAll('.detail-thumb').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+    document.getElementById('mainDetailImage').innerText = emoji;
+  }
+</script>
+
+</body>
+</html>

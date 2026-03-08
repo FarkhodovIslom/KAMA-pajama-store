@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { UpdateOrderStatusSchema, formatZodErrors } from "@/lib/validations";
+import { verifySession } from "@/lib/auth";
 
 export async function GET(
   request: Request,
@@ -35,17 +37,24 @@ export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const admin = await verifySession(request);
+  if (!admin) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { id } = await params;
     const body = await request.json();
-    const { status } = body;
+    const result = UpdateOrderStatusSchema.safeParse(body);
 
-    if (!status || !["PENDING", "COMPLETED", "CANCELLED"].includes(status)) {
+    if (!result.success) {
       return NextResponse.json(
-        { error: "Valid status is required" },
+        { error: "Validation failed", details: formatZodErrors(result.error) },
         { status: 400 }
       );
     }
+
+    const { status } = result.data;
 
     const order = await prisma.order.update({
       where: { id: parseInt(id) },

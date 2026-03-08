@@ -14,6 +14,10 @@ export interface CartItem {
 
 interface CartContextType {
     items: CartItem[];
+    isOpen: boolean;
+    openCart: () => void;
+    closeCart: () => void;
+    toggleCart: () => void;
     addItem: (item: CartItem) => void;
     updateQuantity: (productId: string, color: string, size: string, quantity: number) => void;
     removeItem: (productId: string, color: string, size: string) => void;
@@ -29,6 +33,11 @@ const CART_STORAGE_KEY = "kama-cart";
 export function CartProvider({ children }: { children: ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openCart = () => setIsOpen(true);
+    const closeCart = () => setIsOpen(false);
+    const toggleCart = () => setIsOpen((prev) => !prev);
 
     // Load cart from localStorage on mount
     useEffect(() => {
@@ -97,6 +106,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
         <CartContext.Provider
             value={{
                 items,
+                isOpen,
+                openCart,
+                closeCart,
+                toggleCart,
                 addItem,
                 updateQuantity,
                 removeItem,
@@ -105,7 +118,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 totalPrice,
             }}
         >
-            {children}
+            {isLoaded ? children : null}
         </CartContext.Provider>
     );
 }

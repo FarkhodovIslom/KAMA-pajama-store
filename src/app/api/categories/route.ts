@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { CreateCategorySchema, formatZodErrors } from "@/lib/validations";
+import { verifySession } from "@/lib/auth";
 
 export async function GET() {
   try {
@@ -23,24 +25,26 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const admin = await verifySession(request);
+  if (!admin) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
-    const { name, slug, icon, sortOrder } = body;
+    const result = CreateCategorySchema.safeParse(body);
 
-    if (!name || !slug) {
+    if (!result.success) {
       return NextResponse.json(
-        { error: "Name and slug are required" },
+        { error: "Validation failed", details: formatZodErrors(result.error) },
         { status: 400 }
       );
     }
 
+    const { name, slug, icon, sortOrder } = result.data;
+
     const category = await prisma.category.create({
-      data: {
-        name,
-        slug,
-        icon,
-        sortOrder: sortOrder || 0,
-      },
+      data: { name, slug, icon, sortOrder },
     });
 
     return NextResponse.json(category, { status: 201 });

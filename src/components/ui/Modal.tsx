@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import { useEffect, ReactNode } from "react";
 
 interface ModalProps {
     isOpen: boolean;
@@ -10,11 +10,11 @@ interface ModalProps {
 }
 
 export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
-    const overlayRef = useRef<HTMLDivElement>(null);
-
     useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
-            if (e.key === "Escape") onClose();
+            if (e.key === "Escape") {
+                onClose();
+            }
         };
 
         if (isOpen) {
@@ -31,16 +31,17 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
     if (!isOpen) return null;
 
     return (
-        <div
-            ref={overlayRef}
-            className="fixed inset-0 z-50 flex items-center justify-center p-6"
-            onClick={(e) => e.target === overlayRef.current && onClose()}
-        >
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/30 backdrop-blur-sm animate-fade-in" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
+            {/* Backdrop - click to close */}
+            <div
+                className="absolute inset-0 bg-black/30 backdrop-blur-sm animate-fade-in cursor-pointer"
+                onClick={() => onClose()}
+            />
 
             {/* Modal Content */}
-            <div className="relative bg-[var(--kama-white)] rounded-[var(--radius-xl)] shadow-xl max-w-lg w-full max-h-[85vh] overflow-hidden animate-scale-in">
+            <div
+                className="relative bg-[var(--kama-white)] rounded-[var(--radius-xl)] shadow-xl max-w-lg w-full max-h-[85vh] overflow-hidden animate-scale-in cursor-default"
+            >
                 {title && (
                     <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--kama-gray-200)]">
                         <h2 className="text-xl font-semibold text-[var(--kama-gray-900)]">{title}</h2>

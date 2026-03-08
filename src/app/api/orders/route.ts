@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { CreateOrderSchema, formatZodErrors } from "@/lib/validations";
 
 export async function GET() {
   try {
@@ -23,27 +24,25 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { items, total } = body;
+    const result = CreateOrderSchema.safeParse(body);
 
-    if (!items || !items.length || total === undefined) {
+    if (!result.success) {
       return NextResponse.json(
-        { error: "Items and total are required" },
+        { error: "Validation failed", details: formatZodErrors(result.error) },
         { status: 400 }
       );
     }
 
+    const { items, total, customerName, customerPhone, comment } = result.data;
+
     const order = await prisma.order.create({
       data: {
         total,
+        customerName,
+        customerPhone,
+        comment,
         items: {
-          create: items.map((item: {
-            productId: string;
-            name: string;
-            color: string;
-            size: string;
-            quantity: number;
-            price: number;
-          }) => ({
+          create: items.map((item) => ({
             productId: item.productId,
             name: item.name,
             color: item.color,
