@@ -22,7 +22,7 @@ export function AdminSidebar() {
     <aside className="w-64 bg-surface h-screen shadow-soft flex flex-col">
       <div className="p-6 border-b border-border">
         <Link to="/" className="font-borel text-2xl text-primary-dark flex items-center gap-2">
-          <FontAwesomeIcon icon={faFan} className="text-primary" /> SweetDream
+          Kama Pajamas
         </Link>
         <p className="text-xs text-text-muted mt-1">Админ-панель</p>
       </div>

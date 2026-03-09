@@ -1,5 +1,5 @@
 
-export const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+export const BASE_URL = import.meta.env.VITE_API_URL || 'https://loraleet.alwaysdata.net';
 
 function getToken() {
   return localStorage.getItem('pijama-admin-token');

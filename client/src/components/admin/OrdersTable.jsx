@@ -16,7 +16,7 @@ export function OrdersTable() {
       try {
         const data = await api.get('/api/orders');
         if (active) {
-          setOrders(data);
+          setOrders(data.orders || []);
         }
       } catch (err) {
         console.error('Failed to fetch orders:', err);

@@ -8,8 +8,14 @@ export default defineConfig({
     port: 5173,
     open: false,
     proxy: {
-      '/api': 'http://localhost:3001',
-      '/uploads': 'http://localhost:3001',
+      '/api': {
+        target: 'https://loraleet.alwaysdata.net',
+        changeOrigin: true,
+      },
+      '/uploads': {
+        target: 'https://loraleet.alwaysdata.net',
+        changeOrigin: true,
+      },
     },
   },
 })

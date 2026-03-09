@@ -6,6 +6,7 @@ import { formatPrice } from '../../lib/utils';
 import { getProductPlaceholder } from '../../data/mockData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFan, faWater, faChild } from '@fortawesome/free-solid-svg-icons';
+import { BASE_URL } from '../../lib/api';
 
 export function CartItem({ item }) {
   const { updateQuantity, removeItem } = useCart();
@@ -22,12 +23,22 @@ export function CartItem({ item }) {
     >
       {/* Image */}
       <div 
-        className="w-20 h-20 rounded-xl flex-shrink-0 flex items-center justify-center text-3xl"
-        style={{ backgroundColor: placeholder }}
+        className="relative w-20 h-20 rounded-xl flex-shrink-0 flex items-center justify-center text-3xl overflow-hidden"
+        style={{ backgroundColor: !product.image?.startsWith('/uploads') ? placeholder : undefined }}
       >
-        {product.category === 'Женские' && <FontAwesomeIcon icon={faFan} />}
-        {product.category === 'Мужские' && <FontAwesomeIcon icon={faWater} />}
-        {product.category === 'Детские' && <FontAwesomeIcon icon={faChild} />}
+        {product.image?.startsWith('/uploads') ? (
+          <img 
+            src={`${BASE_URL}${product.image}`}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <>
+            {product.category === 'Женские' && <FontAwesomeIcon icon={faFan} />}
+            {product.category === 'Мужские' && <FontAwesomeIcon icon={faWater} />}
+            {product.category === 'Детские' && <FontAwesomeIcon icon={faChild} />}
+          </>
+        )}
       </div>
       
       {/* Info */}
