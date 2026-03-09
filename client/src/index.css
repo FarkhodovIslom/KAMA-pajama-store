@@ -1,0 +1,50 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #FEF6F0;
+  color: #3D2F2F;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Кастомный скроллбар */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FEF6F0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E8A4B0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C0607A;
+}
+
+/* Убираем outline для кнопок */
+button:focus {
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* Плавные переходы */
+a, button {
+  transition: all 0.2s ease;
+}
