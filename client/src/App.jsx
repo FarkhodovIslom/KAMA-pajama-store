@@ -1,5 +1,5 @@
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { CatalogPage } from './pages/CatalogPage';
 import { ProductPage } from './pages/ProductPage';
 import { CartPage } from './pages/CartPage';
@@ -26,6 +26,8 @@ function App() {
       <Route path="/admin/orders" element={<AdminOrdersPage />} />
       <Route path="/admin/products/new" element={<AdminProductNewPage />} />
       <Route path="/admin/products/:id/edit" element={<AdminProductNewPage />} />
+      <Route path="/admin" element={<Navigate to="/admin/orders" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
