@@ -1,4 +1,4 @@
-# 🛏️ Pijama Store — Online Pajama Shop
+# Pijama Store — Online Pajama Shop
 
 Full-stack e-commerce application for selling pajamas and sleepwear. Built with React (Vite), Express, and PostgreSQL.
 
