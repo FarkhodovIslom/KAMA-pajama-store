@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getProductPlaceholder } from '../../data/mockData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,17 +9,16 @@ import { BASE_URL } from '../../lib/api';
 
 export function ImageGallery({ product, images }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   
   const placeholder = getProductPlaceholder(product);
   const displayImages = images.length > 0 ? images : [placeholder];
   
   const scrollPrev = () => {
-    if (emblaApi) emblaApi.scrollPrev();
+    setSelectedIndex((prev) => (prev === 0 ? displayImages.length - 1 : prev - 1));
   };
   
   const scrollNext = () => {
-    if (emblaApi) emblaApi.scrollNext();
+    setSelectedIndex((prev) => (prev === displayImages.length - 1 ? 0 : prev + 1));
   };
   
   return (

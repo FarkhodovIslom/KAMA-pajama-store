@@ -1,13 +1,19 @@
 
 import { useState, useEffect } from 'react';
 import { Navigate, Link, useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Plus, X } from 'lucide-react';
+import { ArrowLeft, Plus, X, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { AdminLayout } from '../../components/admin/AdminLayout';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { useAuth } from '../../hooks/useAuth';
 import { useCategories } from '../../hooks/useCategories';
 import { api } from '../../lib/api';
+
+const PREDEFINED_COLORS = [
+  'Красный', 'Синий', 'Зелёный', 'Чёрный', 'Белый', 'Серый', 
+  'Розовый', 'Бордовый', 'Бежевый', 'Коричневый', 'Жёлтый', 'Фиолетовый', 'Голубой'
+];
 
 export function AdminProductNewPage() {
   const { isAdmin } = useAuth();
@@ -28,9 +34,10 @@ export function AdminProductNewPage() {
     description: '',
   });
 
-  const [variants, setVariants] = useState([{ size: 'Standard', color: 'Base', stockQty: 10 }]);
+  const [variantsState, setVariantsState] = useState({ sizes: '', colors: [], stockQty: '' });
   const [files, setFiles] = useState([]);
   const [existingImages, setExistingImages] = useState([]);
+  const [isColorDropdownOpen, setIsColorDropdownOpen] = useState(false);
 
   useEffect(() => {
     if (isEdit) {
@@ -46,7 +53,18 @@ export function AdminProductNewPage() {
           });
           setExistingImages(data.images || []);
           if (data.variants && data.variants.length > 0) {
-            setVariants(data.variants);
+            // Group variants for editing
+            // Group variants for editing
+            const uniqueSizes = [...new Set(data.variants.map(v => v.size))].join(', ');
+            const uniqueColors = [...new Set(data.variants.map(v => v.color))];
+            // We take the stockQty from the first one as an average/common value for the edit form
+            const defaultQty = data.variants[0]?.stockQty || 0;
+            
+            setVariantsState({
+              sizes: uniqueSizes,
+              colors: uniqueColors,
+              stockQty: defaultQty
+            });
           }
         })
         .catch(console.error)
@@ -64,14 +82,22 @@ export function AdminProductNewPage() {
     }));
   };
 
-  const handleVariantChange = (index, field, value) => {
-    const v = [...variants];
-    v[index][field] = value;
-    setVariants(v);
+  const handleVariantChange = (field, value) => {
+    setVariantsState(prev => ({ ...prev, [field]: value }));
   };
 
-  const addVariant = () => setVariants([...variants, { size: '', color: '', stockQty: 0 }]);
-  const removeVariant = (index) => setVariants(variants.filter((_, i) => i !== index));
+  const addColor = (color) => {
+    if (color && !variantsState.colors.includes(color)) {
+      setVariantsState(prev => ({ ...prev, colors: [...prev.colors, color] }));
+    }
+  };
+
+  const removeColor = (colorToRemove) => {
+    setVariantsState(prev => ({
+      ...prev,
+      colors: prev.colors.filter(c => c !== colorToRemove)
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,7 +111,34 @@ export function AdminProductNewPage() {
       formData.append('category_id', form.category_id);
       formData.append('in_stock', form.in_stock);
       formData.append('popular', form.popular);
-      formData.append('variants', JSON.stringify(variants));
+      // Generate combinations
+      const sizeArray = variantsState.sizes.split(',').map(s => s.trim()).filter(Boolean);
+      const colorArray = variantsState.colors;
+      const generatedVariants = [];
+      const stockPerCombo = parseInt(variantsState.stockQty) || 0;
+      
+      if (sizeArray.length > 0 && colorArray.length > 0) {
+        sizeArray.forEach(size => {
+          colorArray.forEach(color => {
+            generatedVariants.push({ size, color, stockQty: stockPerCombo });
+          });
+        });
+      } else if (sizeArray.length > 0) {
+        // Sizes only
+        sizeArray.forEach(size => {
+          generatedVariants.push({ size, color: '', stockQty: stockPerCombo });
+        });
+      } else if (colorArray.length > 0) {
+        // Colors only
+        colorArray.forEach(color => {
+          generatedVariants.push({ size: 'Standard', color, stockQty: stockPerCombo });
+        });
+      } else {
+        // Fallback or empty
+        generatedVariants.push({ size: 'Standard', color: '', stockQty: stockPerCombo });
+      }
+
+      formData.append('variants', JSON.stringify(generatedVariants));
 
       if (isEdit) {
         formData.append('keepImages', JSON.stringify(existingImages));
@@ -182,23 +235,99 @@ export function AdminProductNewPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-text-primary mb-2">Варианты (Размер / Цвет / Кол-во)</label>
-              <div className="space-y-3">
-                {variants.map((v, i) => (
-                  <div key={i} className="flex gap-3 items-center">
-                    <Input placeholder="Размер (напр. M)" value={v.size} onChange={e => handleVariantChange(i, 'size', e.target.value)} required />
-                    <Input placeholder="Цвет" value={v.color} onChange={e => handleVariantChange(i, 'color', e.target.value)} required />
-                    <Input type="number" placeholder="Остаток" value={v.stockQty} onChange={e => handleVariantChange(i, 'stockQty', e.target.value)} required />
-                    {variants.length > 1 && (
-                      <button type="button" onClick={() => removeVariant(i)} className="text-red-500 hover:bg-red-50 p-2 rounded">
-                        <X size={18} />
-                      </button>
+              <label className="block text-sm font-semibold text-text-primary mb-2">Варианты</label>
+              <div className="grid grid-cols-1 gap-4 p-4 border border-border rounded-lg bg-background">
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1">Размеры (через запятую)</label>
+                  <Input 
+                    placeholder="M, L, XL" 
+                    value={variantsState.sizes} 
+                    onChange={e => handleVariantChange('sizes', e.target.value)} 
+                    required 
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1">Цвета</label>
+                  <div className="relative mb-3">
+                    <button
+                      type="button"
+                      onClick={() => setIsColorDropdownOpen(!isColorDropdownOpen)}
+                      className="w-full flex items-center justify-between border border-border rounded-button px-4 py-3 text-sm focus:outline-none focus:border-primary bg-background text-left text-text-muted"
+                    >
+                      <span>Выберите цвет для добавления...</span>
+                      <ChevronDown 
+                        size={16} 
+                        className={`transition-transform duration-200 ${isColorDropdownOpen ? 'rotate-180' : ''}`} 
+                      />
+                    </button>
+                    
+                    <AnimatePresence>
+                      {isColorDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute z-10 w-full mt-2 bg-surface rounded-card shadow-soft border border-border overflow-hidden max-h-60 overflow-y-auto"
+                        >
+                          {PREDEFINED_COLORS.map(c => (
+                            <button
+                              key={c}
+                              type="button"
+                              onClick={() => {
+                                addColor(c);
+                                setIsColorDropdownOpen(false);
+                              }}
+                              disabled={variantsState.colors.includes(c)}
+                              className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                                variantsState.colors.includes(c) 
+                                  ? 'opacity-50 cursor-not-allowed bg-subtle text-text-muted'
+                                  : 'hover:bg-subtle text-text-primary focus:bg-subtle focus:outline-none'
+                              }`}
+                            >
+                              {c}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                  
+                  {/* Selected Colors Badges */}
+                  <div className="flex flex-wrap gap-2">
+                    {variantsState.colors.map(color => (
+                      <span 
+                        key={color} 
+                        className="inline-flex items-center gap-1 bg-subtle text-text-primary px-3 py-1 rounded-full text-sm font-medium border border-[#F0D8E0]"
+                      >
+                        {color}
+                        <button 
+                          type="button" 
+                          onClick={() => removeColor(color)}
+                          className="hover:text-red-500 transition-colors focus:outline-none"
+                        >
+                          <X size={14} />
+                        </button>
+                      </span>
+                    ))}
+                    {variantsState.colors.length === 0 && (
+                      <span className="text-sm text-text-muted italic">Цвета не выбраны</span>
                     )}
                   </div>
-                ))}
-                <Button type="button" variant="ghost" size="sm" onClick={addVariant} className="mt-2">
-                  <Plus size={16} className="mr-1" /> Добавить вариант
-                </Button>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-text-muted mb-1">Остаток (для каждой комбинации)</label>
+                  <Input 
+                    type="number" 
+                    placeholder="Количество" 
+                    value={variantsState.stockQty} 
+                    onChange={e => handleVariantChange('stockQty', e.target.value)} 
+                    required 
+                  />
+                  <p className="text-xs text-text-muted mt-2">
+                    При сохранении будут созданы все возможные комбинации размеров и цветов, каждой будет присвоен указанный остаток.
+                  </p>
+                </div>
               </div>
             </div>
 

@@ -33,14 +33,14 @@ export function ProductCard({ product, index = 0 }) {
         <div className="group bg-surface rounded-card overflow-hidden shadow-soft transition-all duration-200 hover:shadow-soft-hover hover:-translate-y-1">
           {/* Image */}
           <div 
-            className="h-48 flex items-center justify-center text-6xl relative overflow-hidden"
+            className="h-64 flex items-center justify-center text-6xl relative overflow-hidden"
             style={{ backgroundColor: !product.image ? placeholder : undefined }}
           >
             {product.image && (
               <img 
                 src={`${BASE_URL}${product.image}`}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top"
               />
             )}
             
