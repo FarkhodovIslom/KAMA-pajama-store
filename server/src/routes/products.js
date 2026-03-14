@@ -30,15 +30,15 @@ const storage = multer.diskStorage({
 
 const upload = multer({ 
   storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  limits: { fileSize: 15 * 1024 * 1024 }, // 15MB
   fileFilter: (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|gif|webp/;
+    const allowedTypes = /jpeg|jpg|png|gif|webp|heic|heif/;
     const ext = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mime = allowedTypes.test(file.mimetype);
-    if (ext && mime) {
+    const mime = /jpeg|jpg|png|gif|webp|heic|heif/.test(file.mimetype);
+    if (ext || mime) {
       cb(null, true);
     } else {
-      cb(new Error('Только изображения!'));
+      cb(new Error('Только изображения (JPEG, PNG, WebP, HEIC)!'));
     }
   }
 });
