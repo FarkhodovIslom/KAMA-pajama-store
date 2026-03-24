@@ -46,12 +46,12 @@ const upload = multer({
 // GET /api/products - Список товаров с фильтрами
 router.get('/', async (req, res) => {
   try {
-    const { 
-      category, 
-      minPrice, 
-      maxPrice, 
-      size, 
-      search, 
+    const {
+      category,
+      minPrice,
+      maxPrice,
+      size,
+      search,
       sort = 'newest',
       page = 1,
       limit = 20
@@ -101,13 +101,23 @@ router.get('/', async (req, res) => {
       paramIndex++;
     }
     
+    // Фильтр по размеру
+    if (size) {
+      const sizeArray = size.split(',').map(s => s.trim()).filter(Boolean);
+      if (sizeArray.length > 0) {
+        query += ` AND p.id IN (SELECT product_id FROM product_variants WHERE size = ANY($${paramIndex}))`;
+        params.push(sizeArray);
+        paramIndex++;
+      }
+    }
+
     // Поиск по названию
     if (search) {
       query += ` AND p.name ILIKE $${paramIndex}`;
       params.push(`%${search}%`);
       paramIndex++;
     }
-    
+
     // Группировка
     query += ` GROUP BY p.id, c.name`;
     

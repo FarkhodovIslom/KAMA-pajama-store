@@ -18,7 +18,7 @@ export function CatalogPage() {
   
   const [filters, setFilters] = useState({
     category: searchParams.get('category') || '',
-    sizes: [], // Note: the backend API currently does not filter by size/colors yet, but we'll leave it in state for future
+    sizes: searchParams.get('size') ? searchParams.get('size').split(',') : [],
     colors: [],
     minPrice: searchParams.get('minPrice') ? Number(searchParams.get('minPrice')) : null,
     maxPrice: searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : null,
@@ -41,6 +41,7 @@ export function CatalogPage() {
       try {
         const queryParams = new URLSearchParams();
         if (filters.category) queryParams.set('category', filters.category);
+        if (filters.sizes && filters.sizes.length > 0) queryParams.set('size', filters.sizes.join(','));
         if (filters.minPrice) queryParams.set('minPrice', filters.minPrice);
         if (filters.maxPrice) queryParams.set('maxPrice', filters.maxPrice);
         if (debouncedSearch) queryParams.set('search', debouncedSearch);
@@ -73,10 +74,12 @@ export function CatalogPage() {
       active = false;
     };
   }, [
-    filters.category, 
-    filters.minPrice, 
-    filters.maxPrice, 
-    debouncedSearch, 
+    filters.category,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    JSON.stringify(filters.sizes),
+    filters.minPrice,
+    filters.maxPrice,
+    debouncedSearch,
     filters.sort
   ]);
   
@@ -86,6 +89,7 @@ export function CatalogPage() {
     // Sync with URL
     const params = new URLSearchParams();
     if (newFilters.category) params.set('category', newFilters.category);
+    if (newFilters.sizes && newFilters.sizes.length > 0) params.set('size', newFilters.sizes.join(','));
     if (newFilters.minPrice) params.set('minPrice', String(newFilters.minPrice));
     if (newFilters.maxPrice) params.set('maxPrice', String(newFilters.maxPrice));
     if (newFilters.search) params.set('q', newFilters.search);
