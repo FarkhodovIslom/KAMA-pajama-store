@@ -29,6 +29,7 @@ export function ProductPage() {
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [added, setAdded] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   
   useEffect(() => {
     let active = true;
@@ -97,7 +98,7 @@ export function ProductPage() {
   const handleAddToCart = () => {
     if (!product || !currentVariant) return;
     
-    addItem(product, currentVariant, 1);
+    addItem(product, currentVariant, quantity);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
@@ -203,12 +204,30 @@ export function ProductPage() {
               </div>
             )}
             
-            {/* Add to cart */}
+            {/* Quantity + Add to cart */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
+              className="space-y-3"
             >
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                  className="w-10 h-10 rounded-button border border-border flex items-center justify-center text-lg font-semibold hover:bg-subtle transition-colors"
+                >
+                  −
+                </button>
+                <span className="w-8 text-center font-semibold text-lg">{quantity}</span>
+                <button
+                  type="button"
+                  onClick={() => setQuantity(q => q + 1)}
+                  className="w-10 h-10 rounded-button border border-border flex items-center justify-center text-lg font-semibold hover:bg-subtle transition-colors"
+                >
+                  +
+                </button>
+              </div>
               <Button
                 onClick={handleAddToCart}
                 disabled={!product.inStock || !currentVariant}
